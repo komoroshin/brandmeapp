@@ -397,6 +397,26 @@
                     <div class="input-help">Валовая маржинальность (выручка - переменные расходы)</div>
                 </div>
 
+                <h3 style="margin-top: 2rem;">📦 Marketplace (дополнительная монетизация)</h3>
+
+                <div class="input-group">
+                    <label class="input-label">% клиентов, заказывающих услуги ежегодно</label>
+                    <input type="number" id="marketplace-rate" value="25" min="0" max="100" step="1" onchange="calculate()">
+                    <div class="input-help">Процент клиентов, которые заказывают услуги (фото, сайт, PR) каждый год</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Средний чек услуги ($)</label>
+                    <input type="number" id="marketplace-avg-order" value="1500" min="0" step="100" onchange="calculate()">
+                    <div class="input-help">Средняя стоимость заказа (фото $500-1K, сайт $1-3K, PR $500-1K)</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Комиссия платформы (%)</label>
+                    <input type="number" id="marketplace-commission" value="15" min="0" max="100" step="1" onchange="calculate()">
+                    <div class="input-help">Комиссия с подрядчика за заказ через платформу</div>
+                </div>
+
                 <h3 style="margin-top: 2rem;">Рост клиентской базы</h3>
 
                 <div class="input-group">
@@ -752,6 +772,9 @@
                 churn: 0.8,
                 cac: 120,
                 grossMargin: 97,
+                marketplaceRate: 25,
+                marketplaceAvgOrder: 1500,
+                marketplaceCommission: 15,
                 customers6m: 50,
                 customers12m: 100,
                 customers24m: 300,
@@ -776,6 +799,9 @@
                 churn: 0.6,
                 cac: 100,
                 grossMargin: 97,
+                marketplaceRate: 30,
+                marketplaceAvgOrder: 1500,
+                marketplaceCommission: 15,
                 customers6m: 300,
                 customers12m: 1000,
                 customers24m: 2500,
@@ -813,6 +839,9 @@
             document.getElementById('churn').value = params.churn;
             document.getElementById('cac').value = params.cac;
             document.getElementById('gross-margin').value = params.grossMargin;
+            document.getElementById('marketplace-rate').value = params.marketplaceRate;
+            document.getElementById('marketplace-avg-order').value = params.marketplaceAvgOrder;
+            document.getElementById('marketplace-commission').value = params.marketplaceCommission;
             document.getElementById('customers-6m').value = params.customers6m;
             document.getElementById('customers-12m').value = params.customers12m;
             document.getElementById('customers-24m').value = params.customers24m;
@@ -860,6 +889,9 @@
             const churn = parseFloat(document.getElementById('churn').value) || 0;
             const cac = parseFloat(document.getElementById('cac').value) || 0;
             const grossMargin = parseFloat(document.getElementById('gross-margin').value) || 0;
+            const marketplaceRate = parseFloat(document.getElementById('marketplace-rate').value) || 0;
+            const marketplaceAvgOrder = parseFloat(document.getElementById('marketplace-avg-order').value) || 0;
+            const marketplaceCommission = parseFloat(document.getElementById('marketplace-commission').value) || 0;
             const customers6m = parseFloat(document.getElementById('customers-6m').value) || 0;
             const customers12m = parseFloat(document.getElementById('customers-12m').value) || 0;
             const customers24m = parseFloat(document.getElementById('customers-24m').value) || 0;
@@ -930,11 +962,20 @@
                 unitEconText.textContent = `❌ Unit economics требуют улучшения. LTV/CAC < 2 или payback > 18 мес. Нужно оптимизировать модель.`;
             }
 
-            // Financial Metrics
-            const currentMRR = currentCustomers * arpu;
-            const mrr6m = customers6m * arpu;
-            const mrr12m = customers12m * arpu;
-            const mrr24m = customers24m * arpu;
+            // Marketplace Revenue (annual orders converted to monthly revenue)
+            const marketplaceCommissionPerOrder = marketplaceAvgOrder * (marketplaceCommission / 100);
+            const marketplaceAnnualOrders = (marketplaceRate / 100); // % of customers ordering per year
+
+            const marketplaceMRRCurrent = currentCustomers * marketplaceAnnualOrders * marketplaceCommissionPerOrder / 12;
+            const marketplaceMRR6m = customers6m * marketplaceAnnualOrders * marketplaceCommissionPerOrder / 12;
+            const marketplaceMRR12m = customers12m * marketplaceAnnualOrders * marketplaceCommissionPerOrder / 12;
+            const marketplaceMRR24m = customers24m * marketplaceAnnualOrders * marketplaceCommissionPerOrder / 12;
+
+            // Financial Metrics (Subscriptions + Marketplace)
+            const currentMRR = currentCustomers * arpu + marketplaceMRRCurrent;
+            const mrr6m = customers6m * arpu + marketplaceMRR6m;
+            const mrr12m = customers12m * arpu + marketplaceMRR12m;
+            const mrr24m = customers24m * arpu + marketplaceMRR24m;
             const currentARR = currentMRR * 12;
             const arr24m = mrr24m * 12;
             const valuation24m = arr24m * 8;
