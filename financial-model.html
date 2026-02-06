@@ -431,8 +431,8 @@
 
                 <div class="input-group">
                     <label class="input-label">Founders (3 человека)</label>
-                    <input type="number" id="salary-founders" value="0" min="0" step="100" onchange="calculate()">
-                    <div class="input-help">CEO, CPO, CTO - пока работают без зарплаты</div>
+                    <input type="number" id="salary-founders" value="4500" min="0" step="100" onchange="calculate()">
+                    <div class="input-help">CEO, CPO, CTO - по $1.5K/мес каждый (минимум для жизни)</div>
                 </div>
 
                 <div class="input-group">
@@ -654,7 +654,7 @@
                     <div style="margin-top: 1rem;">
                         <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--black); margin-bottom: 1rem;">
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Сейчас (Feb 2026)</p>
-                            <p style="font-size: 0.9rem; color: var(--gray);">3 founders (без зарплаты на старте)</p>
+                            <p style="font-size: 0.9rem; color: var(--gray);">3 founders по $1.5K/мес (минимум для жизни)</p>
                         </div>
                         <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 2-3</p>
@@ -664,9 +664,17 @@
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 4-6</p>
                             <p style="font-size: 0.9rem; color: var(--gray);">+ Marketing/Growth для performance каналов</p>
                         </div>
-                        <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--accent);">
+                        <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 6+</p>
                             <p style="font-size: 0.9rem; color: var(--gray);">+ Customer Success (part-time продюсер)</p>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--success); margin-bottom: 1rem;">
+                            <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 12 (после v2.0 роста)</p>
+                            <p style="font-size: 0.9rem; color: var(--gray);">Founders увеличивают до $2K/мес каждый ($6K total)</p>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--success);">
+                            <p style="font-weight: 700; margin-bottom: 0.5rem;">Breakeven (~месяц 15-18)</p>
+                            <p style="font-size: 0.9rem; color: var(--gray);">Founders до нормальных зарплат $3-4K/мес каждый</p>
                         </div>
                     </div>
                 </div>
@@ -693,12 +701,14 @@
                     </div>
 
                     <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg); border-radius: 12px;">
-                        <p style="font-weight: 700; margin-bottom: 1rem;">💡 Рекомендации по hiring:</p>
+                        <p style="font-weight: 700; margin-bottom: 1rem;">💡 Рекомендации по зарплатам:</p>
                         <ul style="font-size: 0.9rem; color: var(--gray); list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;">✓ AI Engineer критичен для v2.0 - нанять в первые 3 мес</li>
-                            <li style="margin-bottom: 0.5rem;">✓ Marketing после v2.0 запуска - когда продукт готов к скейлу</li>
-                            <li style="margin-bottom: 0.5rem;">✓ Customer Success по мере роста клиентов (50+)</li>
-                            <li>✓ Founders берут зарплату после breakeven</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>Месяц 0-6:</strong> Founders по $1.5K/мес (минимум для жизни)</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>Месяц 6-12:</strong> Founders увеличить до $2K/мес каждый</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>После breakeven:</strong> Founders до $3-4K/мес каждый</li>
+                            <li style="margin-bottom: 0.5rem;">✓ AI Engineer нанять в месяц 2-3 (критично для v2.0)</li>
+                            <li style="margin-bottom: 0.5rem;">✓ Marketing после v2.0 запуска (месяц 4-6)</li>
+                            <li>✓ Customer Success когда 50+ клиентов (part-time)</li>
                         </ul>
                     </div>
                 </div>
@@ -726,7 +736,7 @@
                 customers24m: 200,
                 investment: 75000,
                 equity: 10,
-                salaryFounders: 0,
+                salaryFounders: 3600,
                 salaryAiEngineer: 2500,
                 salaryMarketing: 2000,
                 salaryCs: 800,
@@ -747,7 +757,7 @@
                 customers24m: 300,
                 investment: 75000,
                 equity: 9,
-                salaryFounders: 0,
+                salaryFounders: 4500,
                 salaryAiEngineer: 3000,
                 salaryMarketing: 2500,
                 salaryCs: 1000,
@@ -768,7 +778,7 @@
                 customers24m: 500,
                 investment: 100000,
                 equity: 8,
-                salaryFounders: 0,
+                salaryFounders: 6000,
                 salaryAiEngineer: 3500,
                 salaryMarketing: 3000,
                 salaryCs: 1500,
