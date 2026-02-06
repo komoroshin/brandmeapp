@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandMe App – Финансовая модель (калькулятор)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --bg: #FAFAFA;
+            --gray: #666666;
+            --gray-light: #999999;
+            --success: #4ade80;
+            --accent: #84CC16;
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            text-transform: lowercase;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        .card {
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0 var(--black);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-help {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        input[type="number"],
+        input[type="range"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--black);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--white);
+            color: var(--black);
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="range"] {
+            padding: 0;
+            height: 8px;
+            background: var(--bg);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--black);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .metric-big {
+            background: var(--white);
+            border: 3px solid var(--black);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-value {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            color: var(--black);
+            letter-spacing: -0.02em;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric-small {
+            background: var(--bg);
+            border: 2px solid var(--black);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .metric-small .value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-small .label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .table thead {
+            background: var(--black);
+        }
+
+        .table th {
+            padding: 1rem;
+            text-align: left;
+            color: var(--white);
+            font-weight: 700;
+            border: 2px solid var(--black);
+            border-bottom: none;
+        }
+
+        .table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .table th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .table td {
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray-light);
+            background: var(--white);
+        }
+
+        .table tr:last-child td:first-child {
+            border-radius: 0 0 0 8px;
+        }
+
+        .table tr:last-child td:last-child {
+            border-radius: 0 0 8px 0;
+        }
+
+        .table tr:hover td {
+            background: var(--bg);
+        }
+
+        .scenario-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--black);
+        }
+
+        .scenario-tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .scenario-tab.active {
+            color: var(--black);
+        }
+
+        .scenario-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--black);
+        }
+
+        .highlight-box {
+            background: var(--bg);
+            border: 3px solid var(--black);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box.success {
+            border-color: var(--success);
+            background: rgba(74, 222, 128, 0.05);
+        }
+
+        .highlight-box.warning {
+            border-color: var(--accent);
+            background: rgba(132, 204, 22, 0.05);
+        }
+
+        .highlight-box.error {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: var(--black);
+            color: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0 var(--black);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+        }
+
+        .chart-container {
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            height: 400px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">brandme app</div>
+
+        <h1>Финансовая модель</h1>
+        <p class="subtitle">Интерактивный калькулятор для расчета unit economics и финансовых прогнозов</p>
+
+        <!-- Scenario Tabs -->
+        <div class="scenario-tabs">
+            <button class="scenario-tab active" onclick="loadScenario('base')">Базовый</button>
+            <button class="scenario-tab" onclick="loadScenario('conservative')">Консервативный</button>
+            <button class="scenario-tab" onclick="loadScenario('optimistic')">Оптимистичный</button>
+            <button class="scenario-tab" onclick="loadScenario('custom')">Кастомный</button>
+        </div>
+
+        <div class="grid grid-2">
+            <!-- Input Parameters -->
+            <div class="card">
+                <h2>📊 Входные параметры</h2>
+
+                <div class="input-group">
+                    <label class="input-label">Текущие клиенты</label>
+                    <input type="number" id="current-customers" value="5" min="0" onchange="calculate()">
+                    <div class="input-help">Количество платящих подписчиков сейчас</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Средний ARPU ($/мес)</label>
+                    <input type="number" id="arpu" value="50" min="0" onchange="calculate()">
+                    <div class="input-help">Average Revenue Per User</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Monthly Churn (%)</label>
+                    <input type="number" id="churn" value="0.8" step="0.1" min="0" max="100" onchange="calculate()">
+                    <div class="input-help">Процент клиентов, которые уходят каждый месяц</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">CAC ($/клиент)</label>
+                    <input type="number" id="cac" value="300" min="0" onchange="calculate()">
+                    <div class="input-help">Customer Acquisition Cost</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Gross Margin (%)</label>
+                    <input type="number" id="gross-margin" value="97" min="0" max="100" onchange="calculate()">
+                    <div class="input-help">Валовая маржинальность (выручка - переменные расходы)</div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Рост клиентской базы</h3>
+
+                <div class="input-group">
+                    <label class="input-label">Клиенты через 6 мес (Jun 2026)</label>
+                    <input type="number" id="customers-6m" value="50" min="0" onchange="calculate()">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Клиенты через 12 мес (Dec 2026)</label>
+                    <input type="number" id="customers-12m" value="100" min="0" onchange="calculate()">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Клиенты через 24 мес (Dec 2027)</label>
+                    <input type="number" id="customers-24m" value="300" min="0" onchange="calculate()">
+                </div>
+
+                <h3 style="margin-top: 2rem;">Инвестиции</h3>
+
+                <div class="input-group">
+                    <label class="input-label">Размер раунда ($)</label>
+                    <input type="number" id="investment" value="75000" min="0" step="1000" onchange="calculate()">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Equity (%)</label>
+                    <input type="number" id="equity" value="9" min="0" max="100" step="0.5" onchange="calculate()">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Месячный burn rate ($)</label>
+                    <input type="number" id="burn-rate" value="5000" min="0" step="100" onchange="calculate()">
+                    <div class="input-help">Ежемесячные операционные расходы</div>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div>
+                <div class="card">
+                    <h2>💰 Unit Economics</h2>
+
+                    <div class="metrics-grid">
+                        <div class="metric-small">
+                            <div class="value" id="ltv-value">$0</div>
+                            <div class="label">LTV</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="ltv-cac-ratio">0:1</div>
+                            <div class="label">LTV/CAC</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="payback-period">0</div>
+                            <div class="label">Payback (мес)</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="annual-churn">0%</div>
+                            <div class="label">Annual Churn</div>
+                        </div>
+                    </div>
+
+                    <div id="unit-economics-status" class="highlight-box" style="margin-top: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">Оценка Unit Economics:</p>
+                        <p id="unit-economics-text" style="font-size: 0.9rem; color: var(--gray);"></p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <h2>📈 Финансовые метрики</h2>
+
+                    <div class="metric-big">
+                        <div class="metric-value" id="current-mrr">$0</div>
+                        <div class="metric-label">MRR сейчас</div>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-small">
+                            <div class="value" id="mrr-6m">$0</div>
+                            <div class="label">MRR 6 мес</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="mrr-12m">$0</div>
+                            <div class="label">MRR 12 мес</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="mrr-24m">$0</div>
+                            <div class="label">MRR 24 мес</div>
+                        </div>
+                    </div>
+
+                    <div class="metrics-grid" style="margin-top: 1rem;">
+                        <div class="metric-small">
+                            <div class="value" id="arr-current">$0</div>
+                            <div class="label">ARR сейчас</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="arr-24m">$0</div>
+                            <div class="label">ARR 24 мес</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="valuation-24m">$0</div>
+                            <div class="label">Оценка (8x ARR)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breakeven Analysis -->
+        <div class="card" style="margin-top: 2rem;">
+            <h2>🎯 Breakeven Analysis</h2>
+
+            <div class="grid grid-2">
+                <div>
+                    <div class="metrics-grid">
+                        <div class="metric-small">
+                            <div class="value" id="runway-months">0</div>
+                            <div class="label">Runway (мес)</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="breakeven-customers">0</div>
+                            <div class="label">Клиентов для breakeven</div>
+                        </div>
+                        <div class="metric-small">
+                            <div class="value" id="breakeven-months">0</div>
+                            <div class="label">Месяцев до breakeven</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="breakeven-status" class="highlight-box">
+                    <p id="breakeven-text" style="font-size: 0.95rem;"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Growth Projection Table -->
+        <div class="card" style="margin-top: 2rem;">
+            <h2>📊 Прогноз по периодам</h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Период</th>
+                        <th>Клиенты</th>
+                        <th>MRR</th>
+                        <th>ARR</th>
+                        <th>Валовая прибыль</th>
+                        <th>Оценка (8x)</th>
+                    </tr>
+                </thead>
+                <tbody id="projection-table">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ROI Analysis -->
+        <div class="card" style="margin-top: 2rem;">
+            <h2>💵 ROI для инвестора</h2>
+
+            <div class="metric-big">
+                <div class="metric-value" id="investor-return">0x</div>
+                <div class="metric-label">ROI за 24 месяца</div>
+            </div>
+
+            <div class="grid grid-2" style="margin-top: 2rem;">
+                <div class="metric-small">
+                    <div class="value" id="investment-amount">$0</div>
+                    <div class="label">Инвестиция</div>
+                </div>
+                <div class="metric-small">
+                    <div class="value" id="equity-percent">0%</div>
+                    <div class="label">Доля в компании</div>
+                </div>
+                <div class="metric-small">
+                    <div class="value" id="premoney-val">$0</div>
+                    <div class="label">Pre-money valuation</div>
+                </div>
+                <div class="metric-small">
+                    <div class="value" id="investor-value-24m">$0</div>
+                    <div class="label">Стоимость доли через 24 мес</div>
+                </div>
+            </div>
+
+            <div id="roi-status" class="highlight-box" style="margin-top: 2rem;">
+                <p id="roi-text" style="font-size: 0.95rem;"></p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 1rem; margin-top: 3rem; justify-content: center;">
+            <button class="btn" onclick="window.print()">📄 Экспорт в PDF</button>
+            <button class="btn btn-secondary" onclick="resetToDefaults()">🔄 Сбросить</button>
+        </div>
+    </div>
+
+    <script>
+        // Scenarios
+        const scenarios = {
+            conservative: {
+                currentCustomers: 5,
+                arpu: 45,
+                churn: 1.2,
+                cac: 350,
+                grossMargin: 95,
+                customers6m: 30,
+                customers12m: 75,
+                customers24m: 200,
+                investment: 75000,
+                equity: 10,
+                burnRate: 6000
+            },
+            base: {
+                currentCustomers: 5,
+                arpu: 50,
+                churn: 0.8,
+                cac: 300,
+                grossMargin: 97,
+                customers6m: 50,
+                customers12m: 100,
+                customers24m: 300,
+                investment: 75000,
+                equity: 9,
+                burnRate: 5000
+            },
+            optimistic: {
+                currentCustomers: 5,
+                arpu: 60,
+                churn: 0.5,
+                cac: 250,
+                grossMargin: 97,
+                customers6m: 75,
+                customers12m: 150,
+                customers24m: 500,
+                investment: 100000,
+                equity: 8,
+                burnRate: 7000
+            }
+        };
+
+        function loadScenario(scenario) {
+            // Update active tab
+            document.querySelectorAll('.scenario-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (scenario === 'custom') {
+                return; // Don't change values for custom
+            }
+
+            const params = scenarios[scenario];
+            document.getElementById('current-customers').value = params.currentCustomers;
+            document.getElementById('arpu').value = params.arpu;
+            document.getElementById('churn').value = params.churn;
+            document.getElementById('cac').value = params.cac;
+            document.getElementById('gross-margin').value = params.grossMargin;
+            document.getElementById('customers-6m').value = params.customers6m;
+            document.getElementById('customers-12m').value = params.customers12m;
+            document.getElementById('customers-24m').value = params.customers24m;
+            document.getElementById('investment').value = params.investment;
+            document.getElementById('equity').value = params.equity;
+            document.getElementById('burn-rate').value = params.burnRate;
+
+            calculate();
+        }
+
+        function calculate() {
+            // Get inputs
+            const currentCustomers = parseFloat(document.getElementById('current-customers').value) || 0;
+            const arpu = parseFloat(document.getElementById('arpu').value) || 0;
+            const churn = parseFloat(document.getElementById('churn').value) || 0;
+            const cac = parseFloat(document.getElementById('cac').value) || 0;
+            const grossMargin = parseFloat(document.getElementById('gross-margin').value) || 0;
+            const customers6m = parseFloat(document.getElementById('customers-6m').value) || 0;
+            const customers12m = parseFloat(document.getElementById('customers-12m').value) || 0;
+            const customers24m = parseFloat(document.getElementById('customers-24m').value) || 0;
+            const investment = parseFloat(document.getElementById('investment').value) || 0;
+            const equity = parseFloat(document.getElementById('equity').value) || 0;
+            const burnRate = parseFloat(document.getElementById('burn-rate').value) || 0;
+
+            // Calculate Unit Economics
+            const annualChurn = (1 - Math.pow(1 - churn/100, 12)) * 100;
+            const avgLifetimeMonths = churn > 0 ? 1 / (churn/100) : 100;
+            const ltv = arpu * avgLifetimeMonths * (grossMargin / 100);
+            const ltvCacRatio = cac > 0 ? ltv / cac : 0;
+            const paybackPeriod = arpu > 0 ? cac / (arpu * (grossMargin / 100)) : 0;
+
+            // Update Unit Economics
+            document.getElementById('ltv-value').textContent = `$${Math.round(ltv).toLocaleString()}`;
+            document.getElementById('ltv-cac-ratio').textContent = `${ltvCacRatio.toFixed(1)}:1`;
+            document.getElementById('payback-period').textContent = `${Math.round(paybackPeriod)}`;
+            document.getElementById('annual-churn').textContent = `${annualChurn.toFixed(1)}%`;
+
+            // Unit Economics Status
+            const unitEconBox = document.getElementById('unit-economics-status');
+            const unitEconText = document.getElementById('unit-economics-text');
+
+            if (ltvCacRatio >= 3 && paybackPeriod <= 12) {
+                unitEconBox.className = 'highlight-box success';
+                unitEconText.textContent = `✅ Отличные unit economics! LTV/CAC > 3 и payback < 12 мес. Модель масштабируемая.`;
+            } else if (ltvCacRatio >= 2 && paybackPeriod <= 18) {
+                unitEconBox.className = 'highlight-box warning';
+                unitEconText.textContent = `⚠️ Приемлемые unit economics, но есть возможности для улучшения. Нужно снижать CAC или увеличивать retention.`;
+            } else {
+                unitEconBox.className = 'highlight-box error';
+                unitEconText.textContent = `❌ Unit economics требуют улучшения. LTV/CAC < 2 или payback > 18 мес. Нужно оптимизировать модель.`;
+            }
+
+            // Financial Metrics
+            const currentMRR = currentCustomers * arpu;
+            const mrr6m = customers6m * arpu;
+            const mrr12m = customers12m * arpu;
+            const mrr24m = customers24m * arpu;
+            const currentARR = currentMRR * 12;
+            const arr24m = mrr24m * 12;
+            const valuation24m = arr24m * 8;
+
+            document.getElementById('current-mrr').textContent = `$${Math.round(currentMRR).toLocaleString()}`;
+            document.getElementById('mrr-6m').textContent = `$${Math.round(mrr6m / 1000)}K`;
+            document.getElementById('mrr-12m').textContent = `$${Math.round(mrr12m / 1000)}K`;
+            document.getElementById('mrr-24m').textContent = `$${Math.round(mrr24m / 1000)}K`;
+            document.getElementById('arr-current').textContent = `$${Math.round(currentARR / 1000)}K`;
+            document.getElementById('arr-24m').textContent = `$${Math.round(arr24m / 1000)}K`;
+            document.getElementById('valuation-24m').textContent = `$${(valuation24m / 1000000).toFixed(1)}M`;
+
+            // Breakeven Analysis
+            const runwayMonths = burnRate > 0 ? investment / burnRate : 999;
+            const breakevenCustomers = burnRate > 0 ? Math.ceil(burnRate / (arpu * (grossMargin / 100))) : 0;
+
+            // Calculate months to breakeven based on growth trajectory
+            let breakevenMonths = 'N/A';
+            if (customers6m >= breakevenCustomers) {
+                breakevenMonths = Math.round(6 * (breakevenCustomers / customers6m));
+            } else if (customers12m >= breakevenCustomers) {
+                breakevenMonths = 6 + Math.round(6 * ((breakevenCustomers - customers6m) / (customers12m - customers6m)));
+            } else if (customers24m >= breakevenCustomers) {
+                breakevenMonths = 12 + Math.round(12 * ((breakevenCustomers - customers12m) / (customers24m - customers12m)));
+            } else {
+                breakevenMonths = '>24';
+            }
+
+            document.getElementById('runway-months').textContent = Math.round(runwayMonths);
+            document.getElementById('breakeven-customers').textContent = breakevenCustomers;
+            document.getElementById('breakeven-months').textContent = breakevenMonths;
+
+            // Breakeven Status
+            const breakevenBox = document.getElementById('breakeven-status');
+            const breakevenText = document.getElementById('breakeven-text');
+
+            if (breakevenMonths !== 'N/A' && breakevenMonths !== '>24' && breakevenMonths < runwayMonths) {
+                breakevenBox.className = 'highlight-box success';
+                breakevenText.textContent = `✅ Компания достигнет breakeven через ${breakevenMonths} мес при ${breakevenCustomers} клиентах. Runway (${Math.round(runwayMonths)} мес) достаточный.`;
+            } else if (breakevenMonths === '>24') {
+                breakevenBox.className = 'highlight-box error';
+                breakevenText.textContent = `❌ Breakeven не достигается в течение 24 месяцев. Нужно либо увеличить рост клиентов, либо снизить расходы, либо поднять больший раунд.`;
+            } else if (runwayMonths < 12) {
+                breakevenBox.className = 'highlight-box warning';
+                breakevenText.textContent = `⚠️ Короткий runway (${Math.round(runwayMonths)} мес). Нужно либо поднять больший раунд, либо снизить burn rate.`;
+            } else {
+                breakevenBox.className = 'highlight-box warning';
+                breakevenText.textContent = `⚠️ Breakeven достигается на грани runway. Рекомендуется либо ускорить рост, либо снизить расходы.`;
+            }
+
+            // Projection Table
+            const periods = [
+                { label: 'Сейчас (Feb 2026)', customers: currentCustomers, mrr: currentMRR },
+                { label: 'Jun 2026 (6 мес)', customers: customers6m, mrr: mrr6m },
+                { label: 'Dec 2026 (12 мес)', customers: customers12m, mrr: mrr12m },
+                { label: 'Dec 2027 (24 мес)', customers: customers24m, mrr: mrr24m }
+            ];
+
+            let tableHTML = '';
+            periods.forEach(period => {
+                const arr = period.mrr * 12;
+                const grossProfit = arr * (grossMargin / 100);
+                const valuation = arr * 8;
+
+                tableHTML += `
+                    <tr>
+                        <td><strong>${period.label}</strong></td>
+                        <td>${period.customers}</td>
+                        <td>$${Math.round(period.mrr).toLocaleString()}</td>
+                        <td>$${Math.round(arr / 1000)}K</td>
+                        <td>$${Math.round(grossProfit / 1000)}K</td>
+                        <td>$${(valuation / 1000000).toFixed(2)}M</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('projection-table').innerHTML = tableHTML;
+
+            // ROI Analysis
+            const premoneyVal = equity > 0 ? (investment / (equity / 100)) - investment : 0;
+            const investorValue24m = valuation24m * (equity / 100);
+            const roiMultiple = investment > 0 ? investorValue24m / investment : 0;
+
+            document.getElementById('investment-amount').textContent = `$${(investment / 1000).toFixed(0)}K`;
+            document.getElementById('equity-percent').textContent = `${equity}%`;
+            document.getElementById('premoney-val').textContent = `$${(premoneyVal / 1000).toFixed(0)}K`;
+            document.getElementById('investor-value-24m').textContent = `$${(investorValue24m / 1000).toFixed(0)}K`;
+            document.getElementById('investor-return').textContent = `${roiMultiple.toFixed(1)}x`;
+
+            // ROI Status
+            const roiBox = document.getElementById('roi-status');
+            const roiText = document.getElementById('roi-text');
+
+            if (roiMultiple >= 3) {
+                roiBox.className = 'highlight-box success';
+                roiText.innerHTML = `<strong>✅ Отличный ROI для инвестора!</strong><br>При инвестиции $${(investment/1000).toFixed(0)}K за ${equity}% equity, стоимость доли через 24 мес составит $${(investorValue24m/1000).toFixed(0)}K (${roiMultiple.toFixed(1)}x return). Это ${((roiMultiple - 1) * 100).toFixed(0)}% прирост капитала.`;
+            } else if (roiMultiple >= 1.5) {
+                roiBox.className = 'highlight-box warning';
+                roiText.innerHTML = `<strong>⚠️ Умеренный ROI для инвестора</strong><br>При инвестиции $${(investment/1000).toFixed(0)}K за ${equity}% equity, стоимость доли через 24 мес составит $${(investorValue24m/1000).toFixed(0)}K (${roiMultiple.toFixed(1)}x return). Для ангелов/micro-VC приемлемо, но можно улучшить рост.`;
+            } else {
+                roiBox.className = 'highlight-box error';
+                roiText.innerHTML = `<strong>❌ Низкий ROI для инвестора</strong><br>При инвестиции $${(investment/1000).toFixed(0)}K за ${equity}% equity, стоимость доли через 24 мес составит $${(investorValue24m/1000).toFixed(0)}K (${roiMultiple.toFixed(1)}x return). Нужно либо снизить equity, либо ускорить рост, либо уменьшить инвестицию.`;
+            }
+        }
+
+        function resetToDefaults() {
+            loadScenario('base');
+        }
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>

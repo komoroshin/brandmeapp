@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandMe App – Investor Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --bg: #FAFAFA;
+            --gray: #666666;
+            --gray-light: #999999;
+            --success: #4ade80;
+            --accent: #84CC16;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--black);
+            overflow: hidden;
+            cursor: default;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateX(30px);
+            padding: 4rem 6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bg);
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-30px);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 6vw, 6rem);
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            text-transform: lowercase;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--black);
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+            font-weight: 700;
+        }
+
+        h4 {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            color: var(--black);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        p, li {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            line-height: 1.6;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        strong {
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            color: var(--gray);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-light);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .metric {
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .metric:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .metric-value {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: none;
+            line-height: 1.4;
+        }
+
+        ul {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--black);
+            font-weight: 700;
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .highlight {
+            background: rgba(132, 204, 22, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .timeline:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--black);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 12px;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: -3.6rem;
+            top: 1.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--black);
+            border-radius: 50%;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+        }
+
+        .table thead {
+            background: var(--black);
+        }
+
+        .table th {
+            padding: 1rem;
+            text-align: left;
+            color: var(--white);
+            font-weight: 700;
+            border: 2px solid var(--black);
+            border-bottom: none;
+        }
+
+        .table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .table th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .table td {
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray-light);
+            background: var(--white);
+        }
+
+        .table tr:last-child td:first-child {
+            border-radius: 0 0 0 8px;
+        }
+
+        .table tr:last-child td:last-child {
+            border-radius: 0 0 8px 0;
+        }
+
+        .table tr:hover td {
+            background: var(--bg);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: var(--black);
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 3rem;
+            left: 3rem;
+            font-size: 1.2rem;
+            color: var(--gray);
+            z-index: 1000;
+            font-weight: 600;
+        }
+
+        .slide-counter .current {
+            color: var(--black);
+            font-weight: 800;
+            font-size: 1.8rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .competitors {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .competitor-card {
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .competitor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 4px 4px 0 var(--black);
+        }
+
+        .competitor-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .scroll-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .scroll-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scroll-content::-webkit-scrollbar-track {
+            background: var(--bg);
+            border-radius: 4px;
+        }
+
+        .scroll-content::-webkit-scrollbar-thumb {
+            background: var(--black);
+            border-radius: 4px;
+        }
+
+        .ask-box {
+            background: var(--white);
+            border: 3px solid var(--black);
+            border-radius: 24px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .ask-amount {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            color: var(--black);
+            margin: 1rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            position: fixed;
+            top: 3rem;
+            right: 3rem;
+            z-index: 1000;
+        }
+
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 3rem 4rem;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .competitors {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Logo -->
+        <div class="logo">brandme app</div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active" data-slide="1">
+            <div class="label">О платформе</div>
+            <h1>brandme app</h1>
+            <p class="subtitle">Платформа для создания персонального бренда на базе AI</p>
+            <div style="margin-top: 4rem;">
+                <p style="font-size: 1.2rem; color: var(--gray);">Investor Pitch Deck</p>
+                <p style="font-size: 1rem; color: var(--gray-light); margin-top: 0.5rem;">February 2026 • Cyprus Meeting</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem -->
+        <div class="slide" data-slide="2">
+            <div class="label">Проблема</div>
+            <h2>Профессионалы не умеют упаковывать свой опыт</h2>
+            <ul style="font-size: 1.3rem; margin-top: 2rem;">
+                <li style="margin-bottom: 1.5rem;">Нет времени и экспертизы для создания качественной страницы</li>
+                <li style="margin-bottom: 1.5rem;">Существующие решения требуют технических навыков</li>
+                <li style="margin-bottom: 1.5rem;">Сайт — долго, дорого и стресс</li>
+            </ul>
+            <div class="metric-grid" style="margin-top: 3rem;">
+                <div class="metric">
+                    <div class="metric-value">74%</div>
+                    <div class="metric-label">доверяют личному бренду</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">90%</div>
+                    <div class="metric-label">не знают, как упаковать</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">70%</div>
+                    <div class="metric-label">работодателей ценят бренд</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Solution -->
+        <div class="slide" data-slide="3">
+            <div class="label">Решение</div>
+            <h2>AI-платформа, которая за 1 интервью с продюсером создаёт готовую персональную страницу</h2>
+            <div class="card" style="margin-top: 3rem; font-size: 1.2rem;">
+                <p style="color: var(--gray); margin-bottom: 1.5rem;">Не конструктор (как Linktree)</p>
+                <div style="height: 4px; background: var(--black); margin: 2rem 0;"></div>
+                <p style="color: var(--black); font-weight: 700; font-size: 1.4rem;">
+                    Продюсерская логика + AI = Готовый результат
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Product Demo -->
+        <div class="slide" data-slide="4">
+            <div class="label">Продукт</div>
+            <h2>Как это работает</h2>
+            <div class="two-column" style="margin-top: 2rem;">
+                <div class="card">
+                    <h4>Процесс создания</h4>
+                    <ul>
+                        <li>Интервью с продюсером (1-1.5 часа)</li>
+                        <li>AI анализирует и структурирует</li>
+                        <li>Автоматический дизайн</li>
+                        <li>Готовая страница за 2-3 дня</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Возможности</h4>
+                    <ul>
+                        <li>Персонализация под аудиторию</li>
+                        <li>Профессиональный дизайн</li>
+                        <li>SEO-оптимизация</li>
+                        <li>Аналитика и метрики</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--black); text-align: center; font-weight: 600;">
+                Реальные примеры: 5 запущенных проектов, 100% довольных клиентов
+            </p>
+        </div>
+
+        <!-- Slide 5: Market -->
+        <div class="slide" data-slide="5">
+            <div class="label">Рынок</div>
+            <h2>Огромный и быстрорастущий рынок</h2>
+            <div class="scroll-content">
+                <div class="metric-grid" style="margin-top: 2rem;">
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 1rem;">TAM</div>
+                        <div class="metric-value">$250B</div>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--gray);">Creator Economy → $480B к 2027</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 1rem;">SAM</div>
+                        <div class="metric-value">$500M-1B</div>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--gray);">SaaS для брендинга</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 1rem;">SOM</div>
+                        <div class="metric-value">$200K-500K</div>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--gray);">К 2027 (300-500 клиентов)</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 1rem;">CAGR</div>
+                        <div class="metric-value">26%</div>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--gray);">Рост рынка 2024-2027</p>
+                    </div>
+                </div>
+                <h3 style="margin-top: 3rem;">Ключевые драйверы</h3>
+                <ul>
+                    <li>200M+ создателей контента по всему миру</li>
+                    <li>LinkedIn Premium: $5B годовой выручки</li>
+                    <li>Персонализация и AI — главные тренды</li>
+                    <li>Web3 и токенизация личных брендов</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: Traction -->
+        <div class="slide" data-slide="6">
+            <div class="label">Traction</div>
+            <h2>Мы уже зарабатываем</h2>
+            <div class="metric-grid" style="margin-top: 2rem;">
+                <div class="metric">
+                    <div class="metric-value">$250</div>
+                    <div class="metric-label">MRR (Monthly Recurring)</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">$3K</div>
+                    <div class="metric-label">Run-rate ARR</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">5</div>
+                    <div class="metric-label">Платящих подписчиков</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">$50</div>
+                    <div class="metric-label">Средний ARPU/мес</div>
+                </div>
+            </div>
+            <h3 style="margin-top: 3rem;">Ключевые достижения</h3>
+            <div class="two-column" style="font-size: 1.1rem;">
+                <div>
+                    <ul>
+                        <li><strong>Подписочная модель:</strong> $30-180/мес</li>
+                        <li><strong>100% органика:</strong> без платной рекламы</li>
+                        <li><strong>Retention:</strong> 100% за первые 2 месяца</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><strong>Примеры результатов:</strong> +40% запросы, конверсия 15%→35%</li>
+                        <li><strong>Вирусный коэффициент:</strong> 1.2-1.3</li>
+                        <li><strong>Time to market:</strong> от идеи до продаж за 3 мес</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; font-size: 1.2rem; color: var(--black); text-align: center; font-weight: 700;">
+                ✅ Product-Market Fit + Recurring Revenue + Путь к прибыльности
+            </p>
+            <div class="card" style="margin-top: 1.5rem; background: var(--bg); text-align: center;">
+                <p style="font-size: 1rem; color: var(--gray);">
+                    <strong style="color: var(--black);">Микро-SaaS подход:</strong> фокус на эффективности, breakeven через 12-15 мес, опционально масштабирование в B2B
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Business Model -->
+        <div class="slide" data-slide="7">
+            <div class="label">Монетизация</div>
+            <h2>Бизнес-модель: Freemium + Subscriptions</h2>
+            <div class="scroll-content">
+                <div class="competitors">
+                    <div class="competitor-card">
+                        <div class="competitor-name">FREE</div>
+                        <p>Базовая страница, 1 шаблон, поддомен</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">Lead magnet → 10K+ пользователей</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">PRO - $30/мес</div>
+                        <p>Премиум шаблоны, домен, аналитика, соцсети</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">70% платящих клиентов</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">BUSINESS - $90/мес</div>
+                        <p>Мультиперсонализация, A/B тесты, CRM интеграции</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">25% платящих клиентов</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">ENTERPRISE - $180/мес</div>
+                        <p>White-label, API, SLA 99.9%, dedicated support</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">5% платящих клиентов (B2C)</p>
+                    </div>
+                    <div class="competitor-card" style="border: 3px solid var(--black); background: var(--bg);">
+                        <div class="competitor-name">🏢 CORPORATE - $300-500/мес</div>
+                        <p><strong>B2B направление:</strong> корпоративные клиенты, команды, рекрутинговые агентства</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">Roadmap v2.5-3.0 • Высокий ARPU</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Ключевые метрики (текущие B2C)</h3>
+                <div class="metric-grid">
+                    <div class="metric">
+                        <div class="metric-value">$50</div>
+                        <div class="metric-label">Средний ARPU/мес</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">$1,100</div>
+                        <div class="metric-label">LTV (24 мес, 0.8% churn)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">$300</div>
+                        <div class="metric-label">CAC (с маркетингом)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">3.7:1</div>
+                        <div class="metric-label">LTV/CAC Ratio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Unit Economics -->
+        <div class="slide" data-slide="8">
+            <div class="label">Экономика</div>
+            <h2>Unit-Economics</h2>
+            <div class="scroll-content">
+                <div class="metric-grid" style="margin-top: 2rem;">
+                    <div class="metric">
+                        <div class="metric-value">3.7:1</div>
+                        <div class="metric-label">LTV/CAC Ratio</div>
+                        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">vs 3:1 benchmark ✅</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">6 мес</div>
+                        <div class="metric-label">Payback Period</div>
+                        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">vs 12+ у конкурентов</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0.8%</div>
+                        <div class="metric-label">Monthly Churn</div>
+                        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">9% annual (отлично)</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">97%</div>
+                        <div class="metric-label">Gross Margin (с AI)</div>
+                        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--gray);">vs 70-80% benchmark</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Почему подписка?</h3>
+                <div class="two-column" style="font-size: 1rem;">
+                    <div>
+                        <ul>
+                            <li>Предсказуемая выручка (MRR/ARR)</li>
+                            <li>Выше LTV ($1,100 vs $450 one-time)</li>
+                            <li>Постоянное улучшение продукта</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Долгосрочные отношения с клиентами</li>
+                            <li>Выше оценка бизнеса (8-12x ARR)</li>
+                            <li>Низкий churn (0.8% monthly)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Roadmap -->
+        <div class="slide" data-slide="9">
+            <div class="label">Развитие</div>
+            <h2>Roadmap: v1.0 → v4.0</h2>
+            <div class="scroll-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>v1.0 — Сейчас (Feb 2026)</h4>
+                        <p><strong>Ручной процесс с продюсером</strong></p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">✅ Product-Market Fit достигнут</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>v2.0 — Q2 2026 (Apr-Jun)</h4>
+                        <p><strong>AI-автоматизация интервью</strong></p>
+                        <p style="margin-top: 0.5rem;">• Время создания: 2-3 дня → 30 минут</p>
+                        <p>• Freemium модель: FREE → PRO → BUSINESS</p>
+                        <p>• Цель: 100 клиентов, MRR $3K</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>v2.5 — Q3 2026 (Jul-Sep)</h4>
+                        <p><strong>Мультиперсонализация + B2B продукт</strong></p>
+                        <p style="margin-top: 0.5rem;">• Разные версии для разных аудиторий</p>
+                        <p>• A/B тестирование</p>
+                        <p>• <strong>CORPORATE tier:</strong> корпоративные клиенты ($300-500/мес)</p>
+                        <p>• Цель: 100 клиентов (включая 10-15 B2B), MRR $10K</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>v3.0 — Q4 2026 (Oct-Dec)</h4>
+                        <p><strong>Экосистема личного бренда</strong></p>
+                        <p style="margin-top: 0.5rem;">• Обучающий курс ($330)</p>
+                        <p>• Интеграции: LinkedIn, Instagram, CRM</p>
+                        <p>• Развитие B2B направления</p>
+                        <p>• Цель: 150-200 клиентов, MRR $12-15K, близко к breakeven</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>v4.0 — 2027+</h4>
+                        <p><strong>Web3 и токенизация личного бренда</strong></p>
+                        <p style="margin-top: 0.5rem;">• Выпуск персональных токенов (Creator Coins)</p>
+                        <p>• Пример: Marina Mogilko — $1.7M</p>
+                        <p>• Комиссия 3% = $15M+ potential revenue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Go-to-Market -->
+        <div class="slide" data-slide="10">
+            <div class="label">GTM стратегия</div>
+            <h2>Go-to-Market Strategy</h2>
+            <div class="scroll-content">
+                <h3>Целевая аудитория: Профсьюмеры</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--gray);">Professionals + Consumers = создатели контента, консультанты, предприниматели</p>
+
+                <div class="competitors" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="competitor-card">
+                        <div class="competitor-name">Creators</div>
+                        <p>YouTubers, блогеры, подкастеры</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">~50K РУ, 5M+ globally</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">Консультанты</div>
+                        <p>Коучи, психологи, IT-специалисты</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">~500K РУ, 20M+ globally</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">Предприниматели</div>
+                        <p>Фаундеры, владельцы бизнеса</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">~100K РУ, 10M+ globally</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">Корп. профи</div>
+                        <p>Топ-менеджеры, эксперты</p>
+                        <p style="color: var(--black); margin-top: 0.5rem; font-weight: 600;">~200K РУ, 50M+ globally</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Стратегия роста (capital efficient)</h3>
+                <ul>
+                    <li><strong>Phase 1 (0→50):</strong> Органика + реферальная программа, CAC $22-33</li>
+                    <li><strong>Phase 2 (50→150):</strong> Performance marketing тесты, B2B пилоты, CAC $55-90</li>
+                    <li><strong>Phase 3 (150→300):</strong> Масштабирование работающих каналов, B2B фокус</li>
+                    <li><strong>Breakeven:</strong> 200-250 клиентов, 12-15 месяцев</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 11: Competitors -->
+        <div class="slide" data-slide="11">
+            <div class="label">Конкуренты</div>
+            <h2>Мы НЕ конструктор. Мы ПРОДЮСЕР + AI</h2>
+            <div class="scroll-content">
+                <div class="card" style="margin-bottom: 2rem; background: var(--bg); border: 3px solid var(--black);">
+                    <p style="font-size: 1.3rem; color: var(--black); text-align: center; font-weight: 700;">
+                        Конкуренты дают инструменты ("сделай сам")<br>
+                        <span style="margin-top: 1rem; display: block;">BrandMe делает ЗА тебя</span>
+                    </p>
+                </div>
+
+                <div class="competitors">
+                    <div class="competitor-card">
+                        <div class="competitor-name">Linktree</div>
+                        <p>50M+ пользователей, $5-24/мес</p>
+                        <p style="color: var(--gray); margin-top: 0.5rem;">❌ Простой список ссылок</p>
+                        <p style="color: var(--success); margin-top: 0.5rem; font-weight: 600;">✅ Мы: Полноценная страница</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">Carrd</div>
+                        <p>2M+ сайтов, $9-49/год</p>
+                        <p style="color: var(--gray); margin-top: 0.5rem;">❌ DIY, нужны навыки</p>
+                        <p style="color: var(--success); margin-top: 0.5rem; font-weight: 600;">✅ Мы: AI делает всё</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">Taplink</div>
+                        <p>РУ-рынок, $8-55/мес</p>
+                        <p style="color: var(--gray); margin-top: 0.5rem;">❌ Только для блогеров</p>
+                        <p style="color: var(--success); margin-top: 0.5rem; font-weight: 600;">✅ Мы: B2B + B2C</p>
+                    </div>
+                    <div class="competitor-card">
+                        <div class="competitor-name">LinkedIn</div>
+                        <p>1B+ пользователей</p>
+                        <p style="color: var(--gray); margin-top: 0.5rem;">❌ Стандартный формат</p>
+                        <p style="color: var(--success); margin-top: 0.5rem; font-weight: 600;">✅ Мы: Полная кастомизация</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Защита от копирования (Moat)</h3>
+                <ul>
+                    <li>Продюсерская экспертиза (tacit knowledge)</li>
+                    <li>Fine-tuned AI-модель на реальных данных</li>
+                    <li>Network effect (чем больше экспертов, тем ценнее)</li>
+                    <li>Web3 roadmap (конкуренты не смотрят в эту сторону)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Team -->
+        <div class="slide" data-slide="12">
+            <div class="label">Команда</div>
+            <h2>Команда</h2>
+            <div class="two-column" style="margin-top: 3rem;">
+                <div class="card">
+                    <h4 style="color: var(--black); font-size: 1.5rem; margin-bottom: 0.5rem;">Konstantin Moroshin</h4>
+                    <p style="color: var(--gray); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600;">CEO, AI/ML Expert</p>
+                    <p>Эксперт в области искусственного интеллекта и машинного обучения. Опыт в разработке AI-систем и NLP.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--black); font-size: 1.5rem; margin-bottom: 0.5rem;">Boris Skobelev</h4>
+                    <p style="color: var(--gray); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600;">CPO, Product Strategy</p>
+                    <p>Продуктовое видение и стратегия. Опыт в стартапах и масштабировании продуктов.</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 2rem; text-align: center;">
+                <h4 style="color: var(--black); font-size: 1.5rem; margin-bottom: 0.5rem;">Denis</h4>
+                <p style="color: var(--gray); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600;">CTO, Frontend Development</p>
+                <p>Технический лидер с опытом в web3 и современных фронтенд-технологиях.</p>
+            </div>
+            <div class="metric-grid" style="margin-top: 3rem;">
+                <div class="metric">
+                    <div class="metric-value">3 мес</div>
+                    <div class="metric-label">от идеи до первых продаж</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">execution capability</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Financial Projections -->
+        <div class="slide" data-slide="13">
+            <div class="label">Финансы</div>
+            <h2>Путь к $200K ARR и breakeven за 24 месяца</h2>
+            <div class="scroll-content">
+                <div class="metric-grid">
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Сейчас (Feb 2026)</div>
+                        <div class="metric-value">$3K</div>
+                        <p style="font-size: 0.8rem;">ARR (5 клиентов)</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Jun 2026 (v2.0)</div>
+                        <div class="metric-value">$33K</div>
+                        <p style="font-size: 0.8rem;">ARR (50 клиентов)</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Dec 2026</div>
+                        <div class="metric-value">$66K</div>
+                        <p style="font-size: 0.8rem;">ARR (100 клиентов)</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Dec 2027</div>
+                        <div class="metric-value">$200K</div>
+                        <p style="font-size: 0.8rem;">ARR (300 клиентов) + breakeven</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: var(--bg); border-radius: 16px; border: 2px solid var(--black);">
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 1rem;">
+                        <strong style="color: var(--black);">💡 Интерактивный калькулятор:</strong> поменяйте параметры и посчитайте свой сценарий
+                    </p>
+                    <a href="financial-model.html" target="_blank" style="display: inline-block; padding: 0.8rem 2rem; background: var(--black); color: var(--white); text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 0.9rem; transition: transform 0.2s ease;">
+                        📊 Открыть финансовую модель
+                    </a>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Оценка бизнеса (Valuation)</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Период</th>
+                            <th>Клиенты</th>
+                            <th>ARR</th>
+                            <th>Multiple</th>
+                            <th>Valuation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Сейчас (Feb 2026)</td>
+                            <td>5</td>
+                            <td>$3K</td>
+                            <td>-</td>
+                            <td style="color: var(--black); font-weight: 700;">$900K-1M (pre-money)</td>
+                        </tr>
+                        <tr>
+                            <td>Jun 2026</td>
+                            <td>50</td>
+                            <td>$33K</td>
+                            <td>6-8x</td>
+                            <td style="color: var(--black); font-weight: 700;">$200-260K</td>
+                        </tr>
+                        <tr>
+                            <td>Dec 2026</td>
+                            <td>100</td>
+                            <td>$66K</td>
+                            <td>8x</td>
+                            <td style="color: var(--black); font-weight: 700;">$528K</td>
+                        </tr>
+                        <tr>
+                            <td>Dec 2027</td>
+                            <td>300</td>
+                            <td>$200K</td>
+                            <td>8x</td>
+                            <td style="color: var(--black); font-weight: 700;">$1.6M (breakeven)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 14: The Ask -->
+        <div class="slide" data-slide="14">
+            <div class="label">Инвестиции</div>
+            <h2>The Ask</h2>
+            <div class="scroll-content">
+                <div class="ask-box">
+                    <p style="font-size: 1.3rem; color: var(--gray);">Мы ищем</p>
+                    <div class="ask-amount">$75-100K</div>
+                    <p style="font-size: 1.3rem; color: var(--gray);">за <span style="color: var(--black); font-weight: 700;">8-10% equity</span></p>
+                    <div style="height: 4px; background: var(--black); margin-top: 2rem;"></div>
+                    <p style="font-size: 1.1rem; color: var(--gray); margin-top: 1rem;">Pre-money valuation: $900K-1M</p>
+                </div>
+
+                <h3>Зачем нужны деньги: Обкатать модель и выйти в breakeven</h3>
+                <div class="card" style="margin-bottom: 2rem; background: var(--bg);">
+                    <h4 style="color: var(--black); margin-bottom: 1rem;">💡 Фокус на эффективности:</h4>
+                    <ul style="font-size: 1rem;">
+                        <li><strong>AI-автоматизация (v2.0):</strong> 2-3 дня → 30 минут на клиента</li>
+                        <li><strong>Performance маркетинг:</strong> протестировать каналы, CAC, конверсию</li>
+                        <li><strong>B2B продукт:</strong> добавить высокомаржинальный корпоративный сегмент</li>
+                        <li><strong>Выход в прибыль:</strong> breakeven через 12-15 месяцев</li>
+                    </ul>
+                    <p style="color: var(--black); font-weight: 700; margin-top: 1rem; font-size: 1.1rem;">
+                        ⚡ С инвестициями: тестируем модель, доказываем масштабируемость, растём органично
+                    </p>
+                </div>
+
+                <h3>ROI Projection (2 года)</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Сценарий</th>
+                            <th>ARR Dec 2027</th>
+                            <th>Valuation (8x)</th>
+                            <th>Equity 9%</th>
+                            <th>ROI Multiple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Консервативный</td>
+                            <td>$150K</td>
+                            <td>$1.2M</td>
+                            <td>$108K</td>
+                            <td style="color: var(--black); font-weight: 700;">1.2x</td>
+                        </tr>
+                        <tr style="background: var(--bg);">
+                            <td><strong>Базовый (план)</strong></td>
+                            <td><strong>$200K</strong></td>
+                            <td><strong>$1.6M</strong></td>
+                            <td><strong>$144K</strong></td>
+                            <td style="color: var(--black); font-weight: 700;"><strong>1.6-1.9x</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Оптимистичный</td>
+                            <td>$350K</td>
+                            <td>$2.8M</td>
+                            <td>$252K</td>
+                            <td style="color: var(--black); font-weight: 700;">2.8-3.4x</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top: 1.5rem; font-size: 1rem; color: var(--gray);">
+                    <strong style="color: var(--black);">Базовый сценарий:</strong> 300 клиентов, $17K MRR, $200K ARR, breakeven за 12-15 мес<br>
+                    <strong style="color: var(--black);">Investor return:</strong> $75-100K → $144K+ = <span style="color: var(--black); font-weight: 700;">1.6-1.9x за 2 года</span> + путь к прибыльности без новых раундов
+                </p>
+
+                <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(132, 204, 22, 0.1); border-radius: 16px; border: 2px solid var(--accent);">
+                    <p style="font-size: 0.95rem; color: var(--black); margin-bottom: 1rem; font-weight: 600;">
+                        📊 Хотите посчитать свой сценарий?
+                    </p>
+                    <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 1rem;">
+                        Интерактивный калькулятор с разными параметрами инвестиций, роста и unit economics
+                    </p>
+                    <a href="financial-model.html" target="_blank" style="display: inline-block; padding: 0.8rem 2rem; background: var(--black); color: var(--white); text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 0.9rem; transition: transform 0.2s ease;">
+                        Открыть калькулятор →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Contact -->
+        <div class="slide" data-slide="15">
+            <div class="label">Контакты</div>
+            <h1 style="font-size: 4rem; margin-bottom: 2rem;">Let's Build Together</h1>
+            <p class="subtitle" style="font-size: 1.5rem;">Прибыльный micro-SaaS с потенциалом масштабирования в B2B</p>
+
+            <div class="card" style="margin-top: 4rem; padding: 3rem; text-align: center;">
+                <h3 style="text-align: center; margin-bottom: 2rem;">Контакты</h3>
+                <div style="font-size: 1.2rem;">
+                    <p style="margin-bottom: 1.5rem;">
+                        <span style="color: var(--gray);">Email:</span>
+                        <span style="color: var(--black); margin-left: 1rem; font-weight: 600;">contact@brandme.app</span>
+                    </p>
+                    <p style="margin-bottom: 1.5rem;">
+                        <span style="color: var(--gray);">Website:</span>
+                        <span style="color: var(--black); margin-left: 1rem; font-weight: 600;">brandme.app</span>
+                    </p>
+                    <p>
+                        <span style="color: var(--gray);">Telegram:</span>
+                        <span style="color: var(--black); margin-left: 1rem; font-weight: 600;">@brandme</span>
+                    </p>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 1.5rem; margin-top: 3rem; color: var(--black); font-weight: 700;">
+                Join us! 🚀
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="slide-counter">
+            <span class="current">1</span> / 15
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn">←</button>
+            <button class="nav-btn" id="next-btn">→</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 15;
+
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.querySelector('.slide-counter .current');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function updateSlide(direction = 'next') {
+            slides.forEach(slide => {
+                slide.classList.remove('active', 'prev');
+            });
+
+            const currentSlideElement = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+            currentSlideElement.classList.add('active');
+
+            if (direction === 'prev') {
+                currentSlideElement.classList.add('prev');
+            }
+
+            counter.textContent = currentSlide;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide('next');
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide('prev');
+            }
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 1;
+                updateSlide();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides;
+                updateSlide();
+            }
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
+
+        // Click anywhere to advance
+        document.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('nav-btn') && !e.target.closest('.nav-btn')) {
+                nextSlide();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandMe App — Платформа для создания персонального бренда на базе AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --bg: #FAFAFA;
+            --gray: #666666;
+            --gray-light: #999999;
+            --success: #4ade80;
+            --error: #ef4444;
+            --gradient-1: linear-gradient(135deg, #E0C3FC 0%, #8EC5FC 100%);
+            --gradient-2: linear-gradient(135deg, #FBC2EB 0%, #A6C1EE 100%);
+            --gradient-3: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            color: var(--black);
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: var(--gradient-2);
+            opacity: 0.15;
+            filter: blur(100px);
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 8vw, 120px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 40px;
+            text-transform: lowercase;
+        }
+
+        .hero-description {
+            font-size: clamp(18px, 2vw, 28px);
+            color: var(--gray);
+            line-height: 1.4;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Section */
+        .section {
+            padding: 120px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-small {
+            padding: 80px 40px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-light);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
+            max-width: 900px;
+        }
+
+        .section-description {
+            font-size: clamp(18px, 2vw, 24px);
+            color: var(--gray);
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: var(--white);
+            border-radius: 40px;
+            padding: 80px 60px;
+            margin: 80px auto;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+        }
+
+        .problem-list {
+            list-style: none;
+            margin-top: 40px;
+        }
+
+        .problem-list li {
+            font-size: clamp(18px, 2vw, 24px);
+            color: var(--gray);
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .problem-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .problem-emoji {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        /* Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .comparison-card {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-card.negative {
+            border: 3px solid var(--error);
+        }
+
+        .comparison-card.positive {
+            border: 3px solid var(--success);
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.05), rgba(132, 204, 22, 0.05));
+        }
+
+        .comparison-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-icon.negative {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .comparison-icon.positive {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .comparison-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .comparison-list {
+            list-style: none;
+        }
+
+        .comparison-list li {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .comparison-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            background: var(--white);
+            border-radius: 40px;
+            padding: 80px 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+        }
+
+        .solution-box {
+            background: var(--gradient-1);
+            border-radius: 24px;
+            padding: 50px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .solution-box-title {
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 20px;
+        }
+
+        /* Profile Card */
+        .profile-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .profile-preview {
+            background: var(--gradient-2);
+            border-radius: 40px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-mockup {
+            background: var(--white);
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .phone-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 20px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .phone-notch {
+            background: var(--black);
+            width: 120px;
+            height: 30px;
+            border-radius: 20px;
+            margin: 0 auto;
+        }
+
+        .profile-image-container {
+            width: 100%;
+            height: 300px;
+            background: var(--gradient-3);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audio-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-role {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        .profile-location {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .profile-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .profile-bio {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-description {
+            font-size: 16px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .team-image {
+            width: 100%;
+            height: 320px;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .team-info {
+            padding: 30px;
+        }
+
+        .team-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .team-description {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--black);
+            color: var(--white);
+            border-radius: 40px;
+            padding: 100px 60px;
+            text-align: center;
+            margin: 80px auto;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            opacity: 0.1;
+            filter: blur(80px);
+        }
+
+        .cta-title {
+            font-size: clamp(32px, 5vw, 64px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-description {
+            font-size: clamp(18px, 2vw, 24px);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+        }
+
+        .btn-secondary:hover {
+            background: var(--black);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .btn-white:hover {
+            background: var(--bg);
+            transform: translateY(-2px);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Tag */
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            background: transparent;
+            border: 2px solid var(--black);
+            color: var(--black);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white);
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .profile-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 80px 30px;
+            }
+
+            .problem-section,
+            .solution-section {
+                padding: 60px 40px;
+            }
+
+            .cta-section {
+                padding: 80px 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 20px 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .problem-section,
+            .solution-section {
+                padding: 40px 30px;
+                border-radius: 24px;
+            }
+
+            .cta-section {
+                padding: 60px 30px;
+                border-radius: 24px;
+            }
+
+            .phone-mockup {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">brandme app</div>
+            <div class="header-icon">◉</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">О платформе</div>
+            <h1 class="hero-title">brandme app</h1>
+            <p class="hero-description">Платформа для создания персонального бренда на базе AI</p>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Связаться с нами</a>
+                <a href="#about" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section" id="about">
+        <div class="problem-section">
+            <div class="section-label">Проблема</div>
+            <h2 class="section-title">Проблема</h2>
+            <ul class="problem-list">
+                <li>Профессионалы не умеют упаковывать свой опыт</li>
+                <li>Нет времени и экспертизы для создания качественной страницы</li>
+                <li>Существующие решения требуют технических навыков</li>
+            </ul>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 50px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--black); margin-bottom: 10px;">74%</div>
+                    <div style="font-size: 14px; color: var(--gray);">доверяют личному бренду</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--black); margin-bottom: 10px;">90%</div>
+                    <div style="font-size: 14px; color: var(--gray);">не знают, как упаковать</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--black); margin-bottom: 10px;">70%</div>
+                    <div style="font-size: 14px; color: var(--gray);">работодателей ценят бренд</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section section-small">
+        <div class="section-label">Решение</div>
+        <h2 class="section-title">AI-платформа, которая за 1 интервью с продюсером создаёт готовую персональную страницу</h2>
+        <p class="section-description" style="max-width: 800px; margin-bottom: 60px;">
+            Не конструктор (как Linktree) = Продюсерская логика + AI = Готовый результат
+        </p>
+
+        <div class="profile-showcase">
+            <div>
+                <p class="section-description" style="margin-bottom: 30px;">
+                    Вместо громоздкого сайта или устаревшего резюме вы получаете лаконичную, визуально выверенную страницу, которую удобно использовать как ссылку в био, отправлять клиентам, показывать на встречах или использовать в презентациях.
+                </p>
+                <div class="features-grid" style="grid-template-columns: 1fr;">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎤</div>
+                        <div class="feature-title">Интервью с продюсером</div>
+                        <p class="feature-description">1-1.5 часа беседы, чтобы раскрыть ваш опыт и ценность</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-title">AI анализирует и структурирует</div>
+                        <p class="feature-description">Умная обработка информации и автоматический дизайн</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <div class="feature-title">Готовая страница за 2-3 дня</div>
+                        <p class="feature-description">Профессиональный результат без технических навыков</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-preview">
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <span>9:41</span>
+                        <div class="phone-notch"></div>
+                        <span>●</span>
+                    </div>
+                    <div class="profile-image-container">
+                        <span>👤</span>
+                        <div class="audio-indicator">🎵</div>
+                    </div>
+                    <div class="profile-name">Валерия Коган</div>
+                    <div class="profile-role">Композитор, автор песен, музыкальный продюсер</div>
+                    <div class="profile-location">📍 Москва, Россия &nbsp; 🗣️ Русский, Английский</div>
+                    <div class="profile-buttons">
+                        <button class="btn btn-primary" style="flex: 1; font-size: 14px; padding: 12px;">Соц. сети</button>
+                        <button class="btn btn-secondary" style="flex: 1; font-size: 14px; padding: 12px;">Контакты</button>
+                    </div>
+                    <div class="profile-bio">
+                        Музыкальный руководитель театра «Шалом»
+                        <br><br>
+                        Выпускник колледжа имени Мусоргского и режиссёрского факультета ГИТИС
+                        <br><br>
+                        Лектор Высшей школы экономики
+                    </div>
+                    <div class="profile-tags">
+                        <span class="tag">Авторство песен</span>
+                        <span class="tag">Звукопроизводство</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <h2 class="section-title">На одной странице собираются: позиционирование и ключевые компетенции, все виды контактов, ссылки на социальные сети</h2>
+        <p class="section-description" style="margin-bottom: 60px;">
+            кейсы и отзывы, фотографии бекстейджа, видео и другие материалы, отражающие ваш стиль и сферу деятельности, офферы, услуги с возможность купить
+        </p>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="section section-small">
+        <div class="section-label">Наше преимущество</div>
+        <h2 class="section-title" style="margin-bottom: 30px;">Мы НЕ конструктор. Мы ПРОДЮСЕР + AI</h2>
+        <p class="section-description" style="margin-bottom: 60px; max-width: 800px;">
+            Конкуренты дают инструменты ("сделай сам") — <strong>BrandMe делает ЗА тебя</strong>
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: var(--error);">Linktree</h3>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 12px;">50M+ пользователей, $5-24/мес</p>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 8px;">❌ Простой список ссылок</p>
+                <p style="color: var(--success); font-size: 14px; font-weight: 600;">✓ Мы: Полноценная страница</p>
+            </div>
+
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: var(--error);">Carrd</h3>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 12px;">2M+ сайтов, $9-49/год</p>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 8px;">❌ DIY, нужны навыки</p>
+                <p style="color: var(--success); font-size: 14px; font-weight: 600;">✓ Мы: AI делает всё</p>
+            </div>
+
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: var(--error);">Taplink</h3>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 12px;">РУ-рынок, $8-55/мес</p>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 8px;">❌ Только для блогеров</p>
+                <p style="color: var(--success); font-size: 14px; font-weight: 600;">✓ Мы: B2B + B2C</p>
+            </div>
+
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: var(--error);">LinkedIn</h3>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 12px;">1B+ пользователей</p>
+                <p style="color: var(--gray); font-size: 14px; margin-bottom: 8px;">❌ Стандартный формат</p>
+                <p style="color: var(--success); font-size: 14px; font-weight: 600;">✓ Мы: Полная кастомизация</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="section" id="platform">
+        <div class="section-label">Для кого</div>
+        <h2 class="section-title">Сервис адаптирован под профсьюмеров — экспертов, предпринимателей, продюсеров и креативных специалистов</h2>
+        <p class="section-description" style="margin-bottom: 60px;">
+            Professionals + Consumers = создатели контента, консультанты, предприниматели, которым важно производить сильное первое впечатление — быстро, эстетично и без лишнего шума
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <div style="font-size: 40px; margin-bottom: 20px;">🎥</div>
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Creators</h3>
+                <p style="color: var(--gray); font-size: 16px; line-height: 1.6;">YouTubers, блогеры, подкастеры</p>
+            </div>
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <div style="font-size: 40px; margin-bottom: 20px;">💼</div>
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Консультанты</h3>
+                <p style="color: var(--gray); font-size: 16px; line-height: 1.6;">Коучи, психологи, IT-специалисты</p>
+            </div>
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <div style="font-size: 40px; margin-bottom: 20px;">🚀</div>
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Предприниматели</h3>
+                <p style="color: var(--gray); font-size: 16px; line-height: 1.6;">Фаундеры, владельцы бизнеса</p>
+            </div>
+            <div style="background: var(--white); padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <div style="font-size: 40px; margin-bottom: 20px;">👔</div>
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Корп. профи</h3>
+                <p style="color: var(--gray); font-size: 16px; line-height: 1.6;">Топ-менеджеры, эксперты</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="section section-small">
+        <div style="background: var(--white); border-radius: 40px; padding: 80px 60px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);">
+            <div class="section-label">Наши результаты</div>
+            <h2 class="section-title" style="margin-bottom: 60px;">Сервис уже работает и приносит результаты клиентам</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 50px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--black); margin-bottom: 10px;">5</div>
+                    <div style="font-size: 14px; color: var(--gray);">платящих подписчиков</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--black); margin-bottom: 10px;">100%</div>
+                    <div style="font-size: 14px; color: var(--gray);">retention за первые 2 месяца</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--black); margin-bottom: 10px;">100%</div>
+                    <div style="font-size: 14px; color: var(--gray);">органический рост</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div style="padding: 30px; background: var(--bg); border-radius: 20px;">
+                    <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">IT-консультант</h3>
+                    <p style="color: var(--gray); font-size: 16px;">+40% запросов на услуги после запуска страницы</p>
+                </div>
+                <div style="padding: 30px; background: var(--bg); border-radius: 20px;">
+                    <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Бизнес-коуч</h3>
+                    <p style="color: var(--gray); font-size: 16px;">Конверсия выросла с 15% до 35%</p>
+                </div>
+                <div style="padding: 30px; background: var(--bg); border-radius: 20px;">
+                    <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Дизайнер</h3>
+                    <p style="color: var(--gray); font-size: 16px;">3 новых проекта за первую неделю</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section section-small">
+        <div class="section-label">Команда проекта</div>
+        <h2 class="section-title" style="margin-bottom: 60px;">Мы создаём будущее персонального брендинга</h2>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">👨‍💼</div>
+                <div class="team-info">
+                    <h3 class="team-name">Константин Морошин</h3>
+                    <div class="team-role">CEO</div>
+                    <p class="team-description">Эксперт в области ИИ, CEO Algoritmic Lab, разработчика web3/AI проектов</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">👩‍💼</div>
+                <div class="team-info">
+                    <h3 class="team-name">Анна Петрусевич</h3>
+                    <div class="team-role">Продюсер, бренд-технолог</div>
+                    <p class="team-description">Художница, публикации в Vogue Russia, британского журнала Wonderzine, Seasons. Проекты для певицы Suzanna, ЛСП, Карины Истоминой и др.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">👨‍💻</div>
+                <div class="team-info">
+                    <h3 class="team-name">Назым Александров</h3>
+                    <div class="team-role">Главный разработчик</div>
+                    <p class="team-description">Более 20 лет работает в легендарной дизайн-студии. Клиенты: РМД, Ростелеком, Минэнерго, Вайлдберриз, Сколтех, VK, Росбанк, X5 и т.д.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">👩‍🎨</div>
+                <div class="team-info">
+                    <h3 class="team-name">Юлия Курмакаева</h3>
+                    <div class="team-role">UX/UI дизайнер</div>
+                    <p class="team-description">Клиенты: ВКонтакте, Сбер, Segezha Group, Сколково, Archetypal Alphabet LLC, Yamal Invest, Русский Музей, художники AES+F, Артем Мороз</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">👨‍🎤</div>
+                <div class="team-info">
+                    <h3 class="team-name">Сергей Сушкин</h3>
+                    <div class="team-role">Трекер</div>
+                    <p class="team-description">Клиенты: Danone, IMG Models, Qatar Airways, EXPO2025, Мария Шарапова, Cartax Education, Сбер, Сколково, Парк Горького, Лужники, Иннополис, Росатом.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">👨‍💻</div>
+                <div class="team-info">
+                    <h3 class="team-name">Николай Кириллов</h3>
+                    <div class="team-role">Смысловик</div>
+                    <p class="team-description">Сотрудник продюсерского центра MyProduce. Копирайтер в веб-студии Имя. Среди клиентов: НТВ, LP Mottor, Татьяна Маринева, RED SMM, Алексей Соловьёв.</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">👩</div>
+                <div class="team-info">
+                    <h3 class="team-name">Алика Кельдибекова</h3>
+                    <div class="team-role">Web-дизайнер</div>
+                    <p class="team-description">Эксперт в создании сайтов на Tilda с уникальными анимациями и адаптивными решениями</p>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image" style="background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);">👩‍💼</div>
+                <div class="team-info">
+                    <h3 class="team-name">Пелагея Болотница</h3>
+                    <div class="team-role">Бренд-технолог, CMM</div>
+                    <p class="team-description">Полномочный представитель холдинга Газпром-медиа в Индии. 15 лет опыта в ИТ менеджменте. Две степени магистра и MBA (МГИМО)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <h2 class="cta-title">мне нужна поддержка</h2>
+        <p class="cta-description">а точнее комплименты, партнеры, инвесторы, клиенты, идеи для развития и масштабирования проекта</p>
+        <div class="btn-group">
+            <a href="mailto:contact@brandme.app" class="btn btn-white">Написать нам</a>
+        </div>
+    </section>
+
+    <!-- Second CTA -->
+    <section class="section">
+        <div class="problem-section" style="text-align: center;">
+            <div class="problem-emoji">👨‍💻</div>
+            <h2 class="section-title" style="margin: 0 auto 30px;">а я, в свою очередь, хочу сосредоточиться на продукте и доработке сервиса, а не клиентской работе</h2>
+            <div class="btn-group">
+                <a href="mailto:contact@brandme.app" class="btn btn-primary">Связаться</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">brandme app</div>
+        <p class="footer-text" style="max-width: 600px; margin: 0 auto 30px;">
+            Если вам интересен наш проект, свяжитесь с нами. Или если есть те, кому это может быть интересно — поделитесь этой информацией.
+        </p>
+        <div style="display: flex; gap: 30px; justify-content: center; margin-bottom: 30px;">
+            <a href="mailto:contact@brandme.app" style="color: var(--black); text-decoration: none; font-weight: 600;">contact@brandme.app</a>
+            <span style="color: var(--gray);">|</span>
+            <a href="https://brandme.app" style="color: var(--black); text-decoration: none; font-weight: 600;">brandme.app</a>
+        </div>
+        <p class="footer-text">
+            © 2026 BrandMe App. Все права защищены.
+        </p>
+    </footer>
+</body>
+</html>

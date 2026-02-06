@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandMe App — Style Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FAFAFA;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .header {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .section {
+            margin-bottom: 100px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        /* Colors */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .color-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .color-swatch {
+            height: 180px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 20px;
+            background: white;
+        }
+
+        .color-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .color-values {
+            font-size: 14px;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Typography */
+        .type-specimen {
+            margin-bottom: 40px;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .type-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .hero-text {
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .heading-1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .heading-2 {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .heading-3 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .body-large {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .body-regular {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .body-small {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        /* Buttons */
+        .button-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #000;
+            border: 2px solid #000;
+        }
+
+        .btn-secondary:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: white;
+        }
+
+        .profile-info {
+            padding: 30px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-role {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .profile-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Icons */
+        .icon-grid {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .icon-item {
+            text-align: center;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 32px;
+        }
+
+        .icon-check {
+            background: #4ade80;
+            color: white;
+        }
+
+        .icon-cross {
+            background: #ef4444;
+            color: white;
+        }
+
+        .icon-circle {
+            background: #000;
+            color: white;
+        }
+
+        /* Gradients */
+        .gradient-card {
+            height: 250px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .gradient-1 {
+            background: linear-gradient(135deg, #E0C3FC 0%, #8EC5FC 100%);
+        }
+
+        .gradient-2 {
+            background: linear-gradient(135deg, #FBC2EB 0%, #A6C1EE 100%);
+        }
+
+        .gradient-3 {
+            background: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%);
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 4px;
+        }
+
+        .tag-outline {
+            background: white;
+            border: 2px solid #000;
+            color: #000;
+        }
+
+        .tag-filled {
+            background: #000;
+            color: white;
+        }
+
+        /* Spacing */
+        .spacing-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .spacing-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .spacing-box {
+            background: #000;
+            height: 60px;
+        }
+
+        .spacing-label {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #666;
+            min-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">brandme app</div>
+            <p class="subtitle">Style Guide & Design System</p>
+        </header>
+
+        <!-- Color Palette -->
+        <section class="section">
+            <h2 class="section-title">Цветовая палитра</h2>
+            <p class="section-description">
+                Минималистичная палитра с акцентом на контрасте черного и белого, дополненная мягкими градиентами и акцентными цветами.
+            </p>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #000000;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Black</div>
+                        <div class="color-values">#000000<br>RGB: 0, 0, 0</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #FFFFFF; border: 1px solid #eee;"></div>
+                    <div class="color-info">
+                        <div class="color-name">White</div>
+                        <div class="color-values">#FFFFFF<br>RGB: 255, 255, 255</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #FAFAFA;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Background</div>
+                        <div class="color-values">#FAFAFA<br>RGB: 250, 250, 250</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #666666;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Gray</div>
+                        <div class="color-values">#666666<br>RGB: 102, 102, 102</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #4ade80;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success Green</div>
+                        <div class="color-values">#4ade80<br>RGB: 74, 222, 128</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #ef4444;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Error Red</div>
+                        <div class="color-values">#ef4444<br>RGB: 239, 68, 68</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gradients -->
+        <section class="section">
+            <h2 class="section-title">Градиенты</h2>
+            <p class="section-description">
+                Мягкие пастельные градиенты используются для фонов и декоративных элементов.
+            </p>
+            <div class="color-grid">
+                <div class="gradient-card gradient-1">Gradient 1</div>
+                <div class="gradient-card gradient-2">Gradient 2</div>
+                <div class="gradient-card gradient-3">Gradient 3</div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="section">
+            <h2 class="section-title">Типографика</h2>
+            <p class="section-description">
+                Основной шрифт — Inter. Используется жирное начертание для заголовков (800-900) и регулярное для основного текста (400-600).
+            </p>
+
+            <div class="type-specimen">
+                <div class="type-label">Hero Text / 72px / Bold 800</div>
+                <div class="hero-text">brandme app</div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-label">Heading 1 / 56px / Bold 800</div>
+                <div class="heading-1">Люди не умеют упаковывать себя</div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-label">Heading 2 / 40px / Bold 800</div>
+                <div class="heading-2">BrandMe App — это онлайн-сервис</div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-label">Heading 3 / 28px / Bold 700</div>
+                <div class="heading-3">Константин Морошин</div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-label">Body Large / 20px / Regular 400</div>
+                <div class="body-large">Вместо громоздкого сайта или устаревшего резюме вы получаете лаконичную, визуально выверенную страницу, которую удобно использовать как ссылку в био.</div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-label">Body Regular / 16px / Regular 400</div>
+                <div class="body-regular">Эксперт в области ИИ, CEO Algoritmic Lab, разработчика web3/AI проектов</div>
+            </div>
+
+            <div class="type-specimen">
+                <div class="type-label">Body Small / 14px / Regular 400</div>
+                <div class="body-small">Москва, Россия • Русский, Английский</div>
+            </div>
+        </section>
+
+        <!-- Buttons -->
+        <section class="section">
+            <h2 class="section-title">Кнопки</h2>
+            <p class="section-description">
+                Два основных стиля кнопок: заполненная черная (primary) и контурная (secondary).
+            </p>
+            <div class="button-grid">
+                <button class="btn btn-primary">Соц. сети</button>
+                <button class="btn btn-secondary">Контакты</button>
+            </div>
+        </section>
+
+        <!-- Icons -->
+        <section class="section">
+            <h2 class="section-title">Иконки</h2>
+            <p class="section-description">
+                Простые графические элементы с четким значением.
+            </p>
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <div class="icon icon-check">✓</div>
+                    <div class="body-small">Success / Check</div>
+                </div>
+                <div class="icon-item">
+                    <div class="icon icon-cross">✕</div>
+                    <div class="body-small">Error / Cross</div>
+                </div>
+                <div class="icon-item">
+                    <div class="icon icon-circle">◉</div>
+                    <div class="body-small">Brand Icon</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tags -->
+        <section class="section">
+            <h2 class="section-title">Теги</h2>
+            <p class="section-description">
+                Используются для категорий, навыков и других меток.
+            </p>
+            <div>
+                <span class="tag tag-filled">Авторство песен</span>
+                <span class="tag tag-outline">Звукопроизводство</span>
+                <span class="tag tag-outline">Управление бюджетом</span>
+                <span class="tag tag-outline">Запись в студии</span>
+            </div>
+        </section>
+
+        <!-- Cards -->
+        <section class="section">
+            <h2 class="section-title">Карточки профиля</h2>
+            <p class="section-description">
+                Карточки с фотографией, именем, описанием и кнопками действий.
+            </p>
+            <div class="card-grid">
+                <div class="profile-card">
+                    <div class="profile-image">👤</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Константин Морошин</div>
+                        <div class="profile-role">CEO</div>
+                        <p class="body-small" style="margin-bottom: 20px;">Эксперт в области ИИ, CEO Algoritmic Lab, разработчика web3/AI проектов</p>
+                        <div class="profile-buttons">
+                            <button class="btn btn-primary">Соц. сети</button>
+                            <button class="btn btn-secondary">Контакты</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacing -->
+        <section class="section">
+            <h2 class="section-title">Отступы и интервалы</h2>
+            <p class="section-description">
+                Система 8px grid для согласованных отступов.
+            </p>
+            <div class="spacing-demo">
+                <div class="spacing-item">
+                    <div class="spacing-label">8px (xs)</div>
+                    <div class="spacing-box" style="width: 8px;"></div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-label">16px (sm)</div>
+                    <div class="spacing-box" style="width: 16px;"></div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-label">24px (md)</div>
+                    <div class="spacing-box" style="width: 24px;"></div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-label">32px (lg)</div>
+                    <div class="spacing-box" style="width: 32px;"></div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-label">48px (xl)</div>
+                    <div class="spacing-box" style="width: 48px;"></div>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-label">64px (2xl)</div>
+                    <div class="spacing-box" style="width: 64px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Principles -->
+        <section class="section">
+            <h2 class="section-title">Дизайн-принципы</h2>
+            <div style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                <div style="margin-bottom: 30px;">
+                    <h3 class="heading-3" style="margin-bottom: 12px;">Минимализм</h3>
+                    <p class="body-regular">Чистый дизайн с фокусом на содержании, много воздуха и пространства.</p>
+                </div>
+                <div style="margin-bottom: 30px;">
+                    <h3 class="heading-3" style="margin-bottom: 12px;">Контраст</h3>
+                    <p class="body-regular">Сильный контраст черного и белого для четкой иерархии.</p>
+                </div>
+                <div style="margin-bottom: 30px;">
+                    <h3 class="heading-3" style="margin-bottom: 12px;">Типографика</h3>
+                    <p class="body-regular">Крупные жирные заголовки как основной визуальный элемент.</p>
+                </div>
+                <div>
+                    <h3 class="heading-3" style="margin-bottom: 12px;">Скругления</h3>
+                    <p class="body-regular">Мягкие скругленные углы (16-24px) для дружелюбного восприятия.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
