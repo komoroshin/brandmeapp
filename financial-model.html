@@ -452,6 +452,26 @@
                     <div class="input-help">Part-time продюсер для интервью</div>
                 </div>
 
+                <div class="input-group">
+                    <label class="input-label">Frontend Developer (part-time)</label>
+                    <input type="number" id="salary-frontend" value="2500" min="0" step="100" onchange="calculate()">
+                    <div class="input-help">Part-time фронтенд разработка, нанять через 1-2 мес</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">UX/UI Designer (part-time)</label>
+                    <input type="number" id="salary-designer" value="2000" min="0" step="100" onchange="calculate()">
+                    <div class="input-help">Part-time дизайн интерфейсов, нанять через 1-2 мес</div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Payroll Taxes & Benefits</h3>
+
+                <div class="input-group">
+                    <label class="input-label">Payroll Tax Rate (%)</label>
+                    <input type="number" id="payroll-tax-rate" value="30" min="0" max="100" step="1" onchange="calculate()">
+                    <div class="input-help">Employer taxes (Social Security, Medicare, etc.) - обычно 25-35%</div>
+                </div>
+
                 <h3 style="margin-top: 2rem;">Маркетинг ($/мес)</h3>
 
                 <div class="input-group">
@@ -656,16 +676,20 @@
                             <p style="font-size: 0.9rem; color: var(--gray);">3 founders по $1.5K/мес (минимум для жизни)</p>
                         </div>
                         <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
+                            <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 1-2</p>
+                            <p style="font-size: 0.9rem; color: var(--gray);">+ Frontend Dev (part-time, $2.5K) + UX/UI Designer (part-time, $2K)</p>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 2-3</p>
-                            <p style="font-size: 0.9rem; color: var(--gray);">+ AI/ML Engineer для v2.0 автоматизации</p>
+                            <p style="font-size: 0.9rem; color: var(--gray);">+ ML Engineer (middle remote, $5K) для v2.0 автоматизации</p>
                         </div>
                         <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 4-6</p>
-                            <p style="font-size: 0.9rem; color: var(--gray);">+ Marketing/Growth для performance каналов</p>
+                            <p style="font-size: 0.9rem; color: var(--gray);">+ Marketing/Growth ($2.5K) для performance каналов</p>
                         </div>
                         <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 6+</p>
-                            <p style="font-size: 0.9rem; color: var(--gray);">+ Customer Success (part-time продюсер)</p>
+                            <p style="font-size: 0.9rem; color: var(--gray);">+ Customer Success (part-time, $1K) продюсер для интервью</p>
                         </div>
                         <div style="padding: 1rem; background: var(--bg); border-left: 4px solid var(--success); margin-bottom: 1rem;">
                             <p style="font-weight: 700; margin-bottom: 0.5rem;">Месяц 12 (после v2.0 роста)</p>
@@ -700,14 +724,15 @@
                     </div>
 
                     <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg); border-radius: 12px;">
-                        <p style="font-weight: 700; margin-bottom: 1rem;">💡 Рекомендации по зарплатам:</p>
+                        <p style="font-weight: 700; margin-bottom: 1rem;">💡 Команда и налоги:</p>
                         <ul style="font-size: 0.9rem; color: var(--gray); list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;">✓ <strong>Месяц 0-6:</strong> Founders по $1.5K/мес (минимум для жизни)</li>
-                            <li style="margin-bottom: 0.5rem;">✓ <strong>Месяц 6-12:</strong> Founders увеличить до $2K/мес каждый</li>
-                            <li style="margin-bottom: 0.5rem;">✓ <strong>После breakeven:</strong> Founders до $3-4K/мес каждый</li>
-                            <li style="margin-bottom: 0.5rem;">✓ AI Engineer нанять в месяц 2-3 (критично для v2.0)</li>
-                            <li style="margin-bottom: 0.5rem;">✓ Marketing после v2.0 запуска (месяц 4-6)</li>
-                            <li>✓ Customer Success когда 50+ клиентов (part-time)</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>Founders:</strong> $1.5K/мес каждый (начало) → $3-4K после breakeven</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>ML Engineer:</strong> $5-6K/мес (middle remote contractor)</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>Frontend/Designer:</strong> part-time contractors ($2-3K каждый)</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>Marketing:</strong> $2.5-3.5K/мес (после v2.0 запуска)</li>
+                            <li style="margin-bottom: 0.5rem;">✓ <strong>Customer Success:</strong> part-time когда 50+ клиентов</li>
+                            <li style="margin-bottom: 0.5rem;">⚠️ <strong>Payroll taxes:</strong> +30% на все зарплаты (employer costs)</li>
+                            <li>💡 <strong>Итого burn:</strong> Консервативный ~$25-27K/мес, Агрессивный ~$33-35K/мес</li>
                         </ul>
                     </div>
                 </div>
@@ -736,9 +761,12 @@
                 investment: 75000,
                 equity: 9,
                 salaryFounders: 4500,
-                salaryAiEngineer: 3000,
+                salaryAiEngineer: 5000,
                 salaryMarketing: 2500,
                 salaryCs: 1000,
+                salaryFrontend: 2500,
+                salaryDesigner: 2000,
+                payrollTaxRate: 30,
                 marketingAds: 1500,
                 marketingContent: 500,
                 marketingTools: 300,
@@ -757,9 +785,12 @@
                 investment: 100000,
                 equity: 8,
                 salaryFounders: 6000,
-                salaryAiEngineer: 4000,
+                salaryAiEngineer: 6000,
                 salaryMarketing: 3500,
                 salaryCs: 2000,
+                salaryFrontend: 3000,
+                salaryDesigner: 2500,
+                payrollTaxRate: 30,
                 marketingAds: 4000,
                 marketingContent: 1000,
                 marketingTools: 500,
@@ -794,6 +825,9 @@
             document.getElementById('salary-ai-engineer').value = params.salaryAiEngineer;
             document.getElementById('salary-marketing').value = params.salaryMarketing;
             document.getElementById('salary-cs').value = params.salaryCs;
+            document.getElementById('salary-frontend').value = params.salaryFrontend;
+            document.getElementById('salary-designer').value = params.salaryDesigner;
+            document.getElementById('payroll-tax-rate').value = params.payrollTaxRate;
             document.getElementById('marketing-ads').value = params.marketingAds;
             document.getElementById('marketing-content').value = params.marketingContent;
             document.getElementById('marketing-tools').value = params.marketingTools;
@@ -821,6 +855,9 @@
             const salaryAiEngineer = parseFloat(document.getElementById('salary-ai-engineer').value) || 0;
             const salaryMarketing = parseFloat(document.getElementById('salary-marketing').value) || 0;
             const salaryCs = parseFloat(document.getElementById('salary-cs').value) || 0;
+            const salaryFrontend = parseFloat(document.getElementById('salary-frontend').value) || 0;
+            const salaryDesigner = parseFloat(document.getElementById('salary-designer').value) || 0;
+            const payrollTaxRate = parseFloat(document.getElementById('payroll-tax-rate').value) || 0;
 
             // Marketing costs
             const marketingAds = parseFloat(document.getElementById('marketing-ads').value) || 0;
@@ -831,18 +868,20 @@
             const infraCosts = parseFloat(document.getElementById('infra-costs').value) || 0;
             const operationalCosts = parseFloat(document.getElementById('operational-costs').value) || 0;
 
-            // Calculate burn rate
-            const totalSalaries = salaryFounders + salaryAiEngineer + salaryMarketing + salaryCs;
+            // Calculate burn rate with payroll taxes
+            const totalSalariesGross = salaryFounders + salaryAiEngineer + salaryMarketing + salaryCs + salaryFrontend + salaryDesigner;
+            const payrollTaxes = totalSalariesGross * (payrollTaxRate / 100);
+            const totalSalariesWithTaxes = totalSalariesGross + payrollTaxes;
             const totalMarketing = marketingAds + marketingContent + marketingTools;
             const totalOther = infraCosts + operationalCosts;
-            const burnRate = totalSalaries + totalMarketing + totalOther;
+            const burnRate = totalSalariesWithTaxes + totalMarketing + totalOther;
 
             // Update burn rate display
             document.getElementById('burn-rate-calc').textContent =
-                `Команда ($${totalSalaries.toLocaleString()}) + Маркетинг ($${totalMarketing.toLocaleString()}) + Инфра ($${totalOther.toLocaleString()}) = $${burnRate.toLocaleString()}/мес`;
+                `Зарплаты ($${totalSalariesGross.toLocaleString()}) + Налоги ${payrollTaxRate}% ($${Math.round(payrollTaxes).toLocaleString()}) + Маркетинг ($${totalMarketing.toLocaleString()}) + Инфра ($${totalOther.toLocaleString()}) = $${Math.round(burnRate).toLocaleString()}/мес`;
 
             // Update team & marketing breakdown
-            document.getElementById('total-salaries').textContent = `$${(totalSalaries / 1000).toFixed(1)}K`;
+            document.getElementById('total-salaries').textContent = `$${(totalSalariesWithTaxes / 1000).toFixed(1)}K`;
             document.getElementById('total-marketing').textContent = `$${(totalMarketing / 1000).toFixed(1)}K`;
             document.getElementById('total-other').textContent = `$${(totalOther / 1000).toFixed(1)}K`;
             document.getElementById('total-burn').textContent = `$${(burnRate / 1000).toFixed(1)}K`;
