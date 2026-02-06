@@ -470,14 +470,6 @@
                     <div class="input-help">Part-time дизайн интерфейсов, нанять через 1-2 мес</div>
                 </div>
 
-                <h3 style="margin-top: 2rem;">Payroll Taxes & Benefits</h3>
-
-                <div class="input-group">
-                    <label class="input-label">Payroll Tax Rate (%)</label>
-                    <input type="number" id="payroll-tax-rate" value="30" min="0" max="100" step="1" onchange="calculate()">
-                    <div class="input-help">Employer taxes (Social Security, Medicare, etc.) - обычно 25-35%</div>
-                </div>
-
                 <h3 style="margin-top: 2rem;">Маркетинг ($/мес)</h3>
 
                 <div class="input-group">
@@ -514,7 +506,7 @@
 
                 <div style="background: var(--bg); border: 2px solid var(--black); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem;">
                     <p style="font-weight: 700; margin-bottom: 0.5rem; color: var(--black);">📊 Автокалькуляция Burn Rate:</p>
-                    <p style="font-size: 0.9rem; color: var(--gray);" id="burn-rate-calc">Команда + Маркетинг + Инфра = $0/мес</p>
+                    <p style="font-size: 0.9rem; color: var(--gray);" id="burn-rate-calc">Зарплаты + Маркетинг + Инфра = $0/мес</p>
                 </div>
             </div>
 
@@ -730,15 +722,14 @@
                     </div>
 
                     <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg); border-radius: 12px;">
-                        <p style="font-weight: 700; margin-bottom: 1rem;">💡 Команда и налоги:</p>
+                        <p style="font-weight: 700; margin-bottom: 1rem;">💡 Команда:</p>
                         <ul style="font-size: 0.9rem; color: var(--gray); list-style: none; padding: 0;">
                             <li style="margin-bottom: 0.5rem;">✓ <strong>Founders:</strong> $1.5K/мес каждый (начало) → $3-4K после breakeven</li>
                             <li style="margin-bottom: 0.5rem;">✓ <strong>ML Engineer:</strong> $5-6K/мес (middle remote contractor)</li>
                             <li style="margin-bottom: 0.5rem;">✓ <strong>Frontend/Designer:</strong> part-time contractors ($2-3K каждый)</li>
                             <li style="margin-bottom: 0.5rem;">✓ <strong>Marketing:</strong> $2.5-3.5K/мес (после v2.0 запуска)</li>
                             <li style="margin-bottom: 0.5rem;">✓ <strong>Customer Success:</strong> part-time когда 50+ клиентов</li>
-                            <li style="margin-bottom: 0.5rem;">⚠️ <strong>Payroll taxes:</strong> +30% на все зарплаты (employer costs)</li>
-                            <li>💡 <strong>Итого burn:</strong> Консервативный ~$25-27K/мес, Агрессивный ~$33-35K/мес</li>
+                            <li>💡 <strong>Итого burn:</strong> Консервативный ~$20-21K/мес, Агрессивный ~$30K/мес</li>
                         </ul>
                     </div>
                 </div>
@@ -772,7 +763,7 @@
                 salaryCs: 1000,
                 salaryFrontend: 2500,
                 salaryDesigner: 2000,
-                payrollTaxRate: 30,
+                payrollTaxRate: 0,
                 marketingAds: 1500,
                 marketingContent: 500,
                 marketingTools: 300,
@@ -796,7 +787,7 @@
                 salaryCs: 2000,
                 salaryFrontend: 3000,
                 salaryDesigner: 2500,
-                payrollTaxRate: 30,
+                payrollTaxRate: 0,
                 marketingAds: 4000,
                 marketingContent: 1000,
                 marketingTools: 500,
@@ -882,7 +873,7 @@
             const salaryCs = parseFloat(document.getElementById('salary-cs').value) || 0;
             const salaryFrontend = parseFloat(document.getElementById('salary-frontend').value) || 0;
             const salaryDesigner = parseFloat(document.getElementById('salary-designer').value) || 0;
-            const payrollTaxRate = parseFloat(document.getElementById('payroll-tax-rate').value) || 0;
+            const payrollTaxRate = 0; // No separate payroll taxes, salaries are gross
 
             // Marketing costs
             const marketingAds = parseFloat(document.getElementById('marketing-ads').value) || 0;
@@ -903,7 +894,7 @@
 
             // Update burn rate display
             document.getElementById('burn-rate-calc').textContent =
-                `Зарплаты ($${totalSalariesGross.toLocaleString()}) + Налоги ${payrollTaxRate}% ($${Math.round(payrollTaxes).toLocaleString()}) + Маркетинг ($${totalMarketing.toLocaleString()}) + Инфра ($${totalOther.toLocaleString()}) = $${Math.round(burnRate).toLocaleString()}/мес`;
+                `Зарплаты ($${totalSalariesGross.toLocaleString()}) + Маркетинг ($${totalMarketing.toLocaleString()}) + Инфра ($${totalOther.toLocaleString()}) = $${Math.round(burnRate).toLocaleString()}/мес`;
 
             // Update team & marketing breakdown
             document.getElementById('total-salaries').textContent = `$${(totalSalariesWithTaxes / 1000).toFixed(1)}K`;
