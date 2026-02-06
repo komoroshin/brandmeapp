@@ -880,9 +880,10 @@
         <!-- Slide 13: Financial Projections -->
         <div class="slide" data-slide="13">
             <div class="label">Финансы</div>
-            <h2>Путь к $200K ARR и breakeven за 24 месяца</h2>
+            <h2>Финансовые прогнозы: 2 сценария роста</h2>
             <div class="scroll-content">
-                <div class="metric-grid">
+                <h3 style="margin-bottom: 1.5rem;">Консервативный сценарий</h3>
+                <div class="metric-grid" style="margin-bottom: 3rem;">
                     <div class="metric">
                         <div class="metric-label" style="margin-bottom: 0.5rem;">Сейчас (Feb 2026)</div>
                         <div class="metric-value">$3K</div>
@@ -905,6 +906,30 @@
                     </div>
                 </div>
 
+                <h3 style="margin-bottom: 1.5rem;">Агрессивный сценарий (с доп. инвестициями)</h3>
+                <div class="metric-grid">
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Сейчас (Feb 2026)</div>
+                        <div class="metric-value">$3K</div>
+                        <p style="font-size: 0.8rem;">ARR (5 клиентов)</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Jun 2026</div>
+                        <div class="metric-value">$200K</div>
+                        <p style="font-size: 0.8rem;">ARR (300 клиентов)</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Dec 2026</div>
+                        <div class="metric-value">$660K</div>
+                        <p style="font-size: 0.8rem;">ARR (1,000 клиентов) + breakeven</p>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label" style="margin-bottom: 0.5rem;">Dec 2027</div>
+                        <div class="metric-value">$1.6M</div>
+                        <p style="font-size: 0.8rem;">ARR (2,500 клиентов)</p>
+                    </div>
+                </div>
+
                 <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: var(--bg); border-radius: 16px; border: 2px solid var(--black);">
                     <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 1rem;">
                         <strong style="color: var(--black);">💡 Интерактивный калькулятор:</strong> поменяйте параметры и посчитайте свой сценарий
@@ -914,48 +939,37 @@
                     </a>
                 </div>
 
-                <h3 style="margin-top: 2rem;">Оценка бизнеса (Valuation)</h3>
+                <h3 style="margin-top: 2rem;">Оценка бизнеса (Valuation) — Сравнение сценариев</h3>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Период</th>
-                            <th>Клиенты</th>
-                            <th>ARR</th>
-                            <th>Multiple</th>
-                            <th>Valuation</th>
+                            <th>Сценарий</th>
+                            <th>Dec 2026</th>
+                            <th>ARR Dec 2026</th>
+                            <th>Valuation (8x)</th>
+                            <th>Dec 2027</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Сейчас (Feb 2026)</td>
-                            <td>5</td>
-                            <td>$3K</td>
-                            <td>-</td>
-                            <td style="color: var(--black); font-weight: 700;">$900K-1M (pre-money)</td>
-                        </tr>
-                        <tr>
-                            <td>Jun 2026</td>
-                            <td>50</td>
-                            <td>$33K</td>
-                            <td>6-8x</td>
-                            <td style="color: var(--black); font-weight: 700;">$200-260K</td>
-                        </tr>
-                        <tr>
-                            <td>Dec 2026</td>
-                            <td>100</td>
+                            <td><strong>Консервативный</strong></td>
+                            <td>100 клиентов</td>
                             <td>$66K</td>
-                            <td>8x</td>
-                            <td style="color: var(--black); font-weight: 700;">$528K</td>
+                            <td>$528K</td>
+                            <td style="color: var(--black); font-weight: 700;">300 клиентов, $200K ARR, breakeven</td>
                         </tr>
-                        <tr>
-                            <td>Dec 2027</td>
-                            <td>300</td>
-                            <td>$200K</td>
-                            <td>8x</td>
-                            <td style="color: var(--black); font-weight: 700;">$1.6M (breakeven)</td>
+                        <tr style="background: var(--bg);">
+                            <td><strong>Агрессивный</strong></td>
+                            <td>1,000 клиентов</td>
+                            <td>$660K</td>
+                            <td>$5.3M</td>
+                            <td style="color: var(--black); font-weight: 700;">2,500 клиентов, $1.6M ARR</td>
                         </tr>
                     </tbody>
                 </table>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">
+                    <strong style="color: var(--black);">Агрессивный сценарий:</strong> breakeven на ~420 клиентах (середина 2026), требует $100K инвестиций и более высокий маркетинговый бюджет
+                </p>
             </div>
         </div>
 
@@ -991,40 +1005,36 @@
                     <thead>
                         <tr>
                             <th>Сценарий</th>
+                            <th>Инвестиция</th>
                             <th>ARR Dec 2027</th>
                             <th>Valuation (8x)</th>
-                            <th>Equity 9%</th>
+                            <th>Equity</th>
                             <th>ROI Multiple</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Консервативный</td>
-                            <td>$150K</td>
-                            <td>$1.2M</td>
-                            <td>$108K</td>
-                            <td style="color: var(--black); font-weight: 700;">1.2x</td>
+                            <td><strong>Консервативный</strong></td>
+                            <td>$75K</td>
+                            <td>$200K</td>
+                            <td>$1.6M</td>
+                            <td>9% → $144K</td>
+                            <td style="color: var(--black); font-weight: 700;">1.6-1.9x</td>
                         </tr>
                         <tr style="background: var(--bg);">
-                            <td><strong>Базовый (план)</strong></td>
-                            <td><strong>$200K</strong></td>
-                            <td><strong>$1.6M</strong></td>
-                            <td><strong>$144K</strong></td>
-                            <td style="color: var(--black); font-weight: 700;"><strong>1.6-1.9x</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Оптимистичный</td>
-                            <td>$350K</td>
-                            <td>$2.8M</td>
-                            <td>$252K</td>
-                            <td style="color: var(--black); font-weight: 700;">2.8-3.4x</td>
+                            <td><strong>Агрессивный</strong></td>
+                            <td>$100K</td>
+                            <td>$1.6M</td>
+                            <td>$12.8M</td>
+                            <td>8% → $1M</td>
+                            <td style="color: var(--black); font-weight: 700;">8-10x</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <p style="margin-top: 1.5rem; font-size: 1rem; color: var(--gray);">
-                    <strong style="color: var(--black);">Базовый сценарий:</strong> 300 клиентов, $17K MRR, $200K ARR, breakeven за 12-15 мес<br>
-                    <strong style="color: var(--black);">Investor return:</strong> $75-100K → $144K+ = <span style="color: var(--black); font-weight: 700;">1.6-1.9x за 2 года</span> + путь к прибыльности без новых раундов
+                    <strong style="color: var(--black);">Консервативный:</strong> 300 клиентов, $17K MRR, $200K ARR, breakeven за 15-18 мес, низкий риск<br>
+                    <strong style="color: var(--black);">Агрессивный:</strong> 2,500 клиентов, $133K MRR, $1.6M ARR, breakeven за 6-8 мес, требует эффективного маркетинга
                 </p>
 
                 <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(132, 204, 22, 0.1); border-radius: 16px; border: 2px solid var(--accent);">

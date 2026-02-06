@@ -357,9 +357,8 @@
 
         <!-- Scenario Tabs -->
         <div class="scenario-tabs">
-            <button class="scenario-tab active" onclick="loadScenario('base')">Базовый</button>
-            <button class="scenario-tab" onclick="loadScenario('conservative')">Консервативный</button>
-            <button class="scenario-tab" onclick="loadScenario('optimistic')">Оптимистичный</button>
+            <button class="scenario-tab active" onclick="loadScenario('conservative')">Консервативный</button>
+            <button class="scenario-tab" onclick="loadScenario('aggressive')">Агрессивный</button>
             <button class="scenario-tab" onclick="loadScenario('custom')">Кастомный</button>
         </div>
 
@@ -727,27 +726,6 @@
         const scenarios = {
             conservative: {
                 currentCustomers: 5,
-                arpu: 45,
-                churn: 1.2,
-                cac: 350,
-                grossMargin: 95,
-                customers6m: 30,
-                customers12m: 75,
-                customers24m: 200,
-                investment: 75000,
-                equity: 10,
-                salaryFounders: 3600,
-                salaryAiEngineer: 2500,
-                salaryMarketing: 2000,
-                salaryCs: 800,
-                marketingAds: 1000,
-                marketingContent: 300,
-                marketingTools: 200,
-                infraCosts: 300,
-                operationalCosts: 200
-            },
-            base: {
-                currentCustomers: 5,
                 arpu: 50,
                 churn: 0.8,
                 cac: 300,
@@ -767,26 +745,26 @@
                 infraCosts: 400,
                 operationalCosts: 300
             },
-            optimistic: {
+            aggressive: {
                 currentCustomers: 5,
-                arpu: 60,
-                churn: 0.5,
-                cac: 250,
+                arpu: 55,
+                churn: 0.6,
+                cac: 280,
                 grossMargin: 97,
-                customers6m: 75,
-                customers12m: 150,
-                customers24m: 500,
+                customers6m: 300,
+                customers12m: 1000,
+                customers24m: 2500,
                 investment: 100000,
                 equity: 8,
                 salaryFounders: 6000,
-                salaryAiEngineer: 3500,
-                salaryMarketing: 3000,
-                salaryCs: 1500,
-                marketingAds: 2500,
-                marketingContent: 800,
+                salaryAiEngineer: 4000,
+                salaryMarketing: 3500,
+                salaryCs: 2000,
+                marketingAds: 4000,
+                marketingContent: 1000,
                 marketingTools: 500,
-                infraCosts: 600,
-                operationalCosts: 400
+                infraCosts: 800,
+                operationalCosts: 500
             }
         };
 
@@ -1007,7 +985,7 @@
         }
 
         function resetToDefaults() {
-            loadScenario('base');
+            loadScenario('conservative');
         }
 
         // Initial calculation
