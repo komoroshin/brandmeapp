@@ -990,7 +990,10 @@
 
             // Breakeven Analysis
             const runwayMonths = burnRate > 0 ? investment / burnRate : 999;
-            const breakevenCustomers = burnRate > 0 ? Math.ceil(burnRate / (arpu * (grossMargin / 100))) : 0;
+            // Include both subscription and marketplace revenue in breakeven calculation
+            const marketplaceRevenuePerCustomerPerMonth = marketplaceAnnualOrders * marketplaceCommissionPerOrder / 12;
+            const totalGrossProfitPerCustomerPerMonth = (arpu * (grossMargin / 100)) + marketplaceRevenuePerCustomerPerMonth;
+            const breakevenCustomers = burnRate > 0 ? Math.ceil(burnRate / totalGrossProfitPerCustomerPerMonth) : 0;
 
             // Calculate months to breakeven based on growth trajectory
             let breakevenMonths = 'N/A';
