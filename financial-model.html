@@ -429,38 +429,44 @@
                 <h3 style="margin-top: 2rem;">Команда (зарплаты/мес)</h3>
 
                 <div class="input-group">
-                    <label class="input-label">Founders (3 человека)</label>
-                    <input type="number" id="salary-founders" value="4500" min="0" step="100" onchange="calculate()">
+                    <label class="input-label">Founders (3 человека) - $<span id="salary-founders-display">4500</span>/мес</label>
+                    <input type="range" id="salary-founders-range" min="0" max="12000" step="100" value="4500" oninput="updateSalary('founders', this.value)">
+                    <input type="number" id="salary-founders" value="4500" min="0" step="100" onchange="updateSalaryFromInput('founders', this.value)" style="margin-top: 0.5rem;">
                     <div class="input-help">CEO, CPO, CTO - по $1.5K/мес каждый (минимум для жизни)</div>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">AI/ML Engineer (1 FTE)</label>
-                    <input type="number" id="salary-ai-engineer" value="3000" min="0" step="100" onchange="calculate()">
-                    <div class="input-help">Для автоматизации v2.0, нанять через 2-3 мес</div>
+                    <label class="input-label">AI/ML Engineer (1 FTE) - $<span id="salary-ai-engineer-display">5000</span>/мес</label>
+                    <input type="range" id="salary-ai-engineer-range" min="0" max="10000" step="100" value="5000" oninput="updateSalary('ai-engineer', this.value)">
+                    <input type="number" id="salary-ai-engineer" value="5000" min="0" step="100" onchange="updateSalaryFromInput('ai-engineer', this.value)" style="margin-top: 0.5rem;">
+                    <div class="input-help">Middle remote contractor, $5-6K рыночная ставка</div>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">Marketing/Growth (1 FTE)</label>
-                    <input type="number" id="salary-marketing" value="2500" min="0" step="100" onchange="calculate()">
+                    <label class="input-label">Marketing/Growth (1 FTE) - $<span id="salary-marketing-display">2500</span>/мес</label>
+                    <input type="range" id="salary-marketing-range" min="0" max="6000" step="100" value="2500" oninput="updateSalary('marketing', this.value)">
+                    <input type="number" id="salary-marketing" value="2500" min="0" step="100" onchange="updateSalaryFromInput('marketing', this.value)" style="margin-top: 0.5rem;">
                     <div class="input-help">Performance marketing, нанять через 4-6 мес</div>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">Customer Success (0.5 FTE)</label>
-                    <input type="number" id="salary-cs" value="1000" min="0" step="100" onchange="calculate()">
+                    <label class="input-label">Customer Success (0.5 FTE) - $<span id="salary-cs-display">1000</span>/мес</label>
+                    <input type="range" id="salary-cs-range" min="0" max="3000" step="100" value="1000" oninput="updateSalary('cs', this.value)">
+                    <input type="number" id="salary-cs" value="1000" min="0" step="100" onchange="updateSalaryFromInput('cs', this.value)" style="margin-top: 0.5rem;">
                     <div class="input-help">Part-time продюсер для интервью</div>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">Frontend Developer (part-time)</label>
-                    <input type="number" id="salary-frontend" value="2500" min="0" step="100" onchange="calculate()">
+                    <label class="input-label">Frontend Developer (part-time) - $<span id="salary-frontend-display">2500</span>/мес</label>
+                    <input type="range" id="salary-frontend-range" min="0" max="6000" step="100" value="2500" oninput="updateSalary('frontend', this.value)">
+                    <input type="number" id="salary-frontend" value="2500" min="0" step="100" onchange="updateSalaryFromInput('frontend', this.value)" style="margin-top: 0.5rem;">
                     <div class="input-help">Part-time фронтенд разработка, нанять через 1-2 мес</div>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">UX/UI Designer (part-time)</label>
-                    <input type="number" id="salary-designer" value="2000" min="0" step="100" onchange="calculate()">
+                    <label class="input-label">UX/UI Designer (part-time) - $<span id="salary-designer-display">2000</span>/мес</label>
+                    <input type="range" id="salary-designer-range" min="0" max="5000" step="100" value="2000" oninput="updateSalary('designer', this.value)">
+                    <input type="number" id="salary-designer" value="2000" min="0" step="100" onchange="updateSalaryFromInput('designer', this.value)" style="margin-top: 0.5rem;">
                     <div class="input-help">Part-time дизайн интерфейсов, нанять через 1-2 мес</div>
                 </div>
 
@@ -821,12 +827,31 @@
             document.getElementById('customers-24m').value = params.customers24m;
             document.getElementById('investment').value = params.investment;
             document.getElementById('equity').value = params.equity;
+            // Update salary fields and sliders
             document.getElementById('salary-founders').value = params.salaryFounders;
+            document.getElementById('salary-founders-range').value = params.salaryFounders;
+            document.getElementById('salary-founders-display').textContent = params.salaryFounders.toLocaleString();
+
             document.getElementById('salary-ai-engineer').value = params.salaryAiEngineer;
+            document.getElementById('salary-ai-engineer-range').value = params.salaryAiEngineer;
+            document.getElementById('salary-ai-engineer-display').textContent = params.salaryAiEngineer.toLocaleString();
+
             document.getElementById('salary-marketing').value = params.salaryMarketing;
+            document.getElementById('salary-marketing-range').value = params.salaryMarketing;
+            document.getElementById('salary-marketing-display').textContent = params.salaryMarketing.toLocaleString();
+
             document.getElementById('salary-cs').value = params.salaryCs;
+            document.getElementById('salary-cs-range').value = params.salaryCs;
+            document.getElementById('salary-cs-display').textContent = params.salaryCs.toLocaleString();
+
             document.getElementById('salary-frontend').value = params.salaryFrontend;
+            document.getElementById('salary-frontend-range').value = params.salaryFrontend;
+            document.getElementById('salary-frontend-display').textContent = params.salaryFrontend.toLocaleString();
+
             document.getElementById('salary-designer').value = params.salaryDesigner;
+            document.getElementById('salary-designer-range').value = params.salaryDesigner;
+            document.getElementById('salary-designer-display').textContent = params.salaryDesigner.toLocaleString();
+
             document.getElementById('payroll-tax-rate').value = params.payrollTaxRate;
             document.getElementById('marketing-ads').value = params.marketingAds;
             document.getElementById('marketing-content').value = params.marketingContent;
@@ -1021,6 +1046,24 @@
                 roiBox.className = 'highlight-box error';
                 roiText.innerHTML = `<strong>❌ Низкий ROI для инвестора</strong><br>При инвестиции $${(investment/1000).toFixed(0)}K за ${equity}% equity, стоимость доли через 24 мес составит $${(investorValue24m/1000).toFixed(0)}K (${roiMultiple.toFixed(1)}x return). Нужно либо снизить equity, либо ускорить рост, либо уменьшить инвестицию.`;
             }
+        }
+
+        function updateSalary(field, value) {
+            // Update the display value
+            document.getElementById(`salary-${field}-display`).textContent = parseInt(value).toLocaleString();
+            // Update the number input
+            document.getElementById(`salary-${field}`).value = value;
+            // Recalculate
+            calculate();
+        }
+
+        function updateSalaryFromInput(field, value) {
+            // Update the display value
+            document.getElementById(`salary-${field}-display`).textContent = parseInt(value).toLocaleString();
+            // Update the range slider
+            document.getElementById(`salary-${field}-range`).value = value;
+            // Recalculate
+            calculate();
         }
 
         function resetToDefaults() {
