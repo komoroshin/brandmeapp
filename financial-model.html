@@ -346,6 +346,148 @@
                 break-inside: avoid;
             }
         }
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .scenario-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .scenario-tab {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .card {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+
+            .grid {
+                gap: 1rem;
+            }
+
+            .metrics-grid,
+            .metric-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .metric-small {
+                padding: 1rem;
+            }
+
+            .metric-small .value {
+                font-size: 1.5rem;
+            }
+
+            .metric-small .label {
+                font-size: 0.75rem;
+            }
+
+            .input-group {
+                margin-bottom: 1rem;
+            }
+
+            .input-label {
+                font-size: 0.85rem;
+            }
+
+            input[type="number"],
+            input[type="range"] {
+                font-size: 0.9rem;
+            }
+
+            .slider-value {
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .scenario-tab {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .chart-container {
+                padding: 1rem;
+                height: 300px;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            table th,
+            table td {
+                padding: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
